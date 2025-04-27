@@ -1,12 +1,38 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Call once to set initial state
+    handleScroll();
+
+    // Clean up
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
+
   return (
-    <header className="fixed w-full z-10">
+    <header
+      className={`fixed w-full z-10 transition-colors duration-300 ${
+        scrolled ? "bg-navy-900 shadow-md" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
