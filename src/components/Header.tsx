@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { routes } from "@/lib/routes";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -29,8 +30,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed w-full z-10 transition-colors duration-300 ${
-        scrolled ? "bg-navy-900 shadow-md" : "bg-transparent"
+      className={`fixed top-0  w-full z-10  transition-colors duration-300 ${
+        scrolled
+          ? "bg-navy-900 shadow-md"
+          : "bg-gradient-to-r from-navy-900 via navy-900 via-slate-800 to-slate-900"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -47,28 +50,16 @@ export default function Header() {
                 Home
               </Link>
               <Link
-                href="#"
+                href={routes.explore}
                 className="text-white/80 hover:text-white transition-colors"
               >
-                Books
+                Materials
               </Link>
               <Link
                 href="#"
                 className="text-white/80 hover:text-white transition-colors"
               >
-                Categories
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                Authors
-              </Link>
-              <Link
-                href="#"
-                className="text-white/80 hover:text-white transition-colors"
-              >
-                About
+                Textbooks
               </Link>
             </nav>
           </div>

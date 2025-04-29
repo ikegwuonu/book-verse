@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { adminRoutes } from "@/lib/routes";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -49,7 +50,7 @@ export function AdminSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 pt-16 transition-transform duration-300 ease-in-out md:translate-x-0 md:relative md:z-0",
+          "sticky h-[calc(100vh-64px)] bottom-0 top-16 left-0 z-50 w-64 bg-white border-r border-gray-200 pt-2 transition-transform duration-300 ease-in-out md:translate-x-0  md:z-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -102,30 +103,30 @@ export function AdminSidebar() {
                 {contentExpanded && (
                   <div className="pl-9 space-y-1 mt-1">
                     <Link
-                      href="/admin/books"
+                      href={adminRoutes.materials}
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
-                        pathname === "/admin/books" ||
-                          pathname.startsWith("/admin/books/")
+                        pathname === "/admin/materials" ||
+                          pathname.startsWith("/admin/materials/")
                           ? "text-navy-900 font-medium"
                           : "text-gray-600 hover:text-gray-900"
                       )}
                     >
                       <BookOpen className="h-4 w-4" />
-                      <span>Books</span>
+                      <span>Materials</span>
                     </Link>
                     <Link
-                      href="/admin/categories"
+                      href={adminRoutes.textbooks}
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
-                        pathname === "/admin/categories" ||
-                          pathname.startsWith("/admin/categories/")
+                        pathname === "/admin/text-books" ||
+                          pathname.startsWith("/admin/text-books/")
                           ? "text-navy-900 font-medium"
                           : "text-gray-600 hover:text-gray-900"
                       )}
                     >
                       <Tag className="h-4 w-4" />
-                      <span>Categories</span>
+                      <span>Textbooks</span>
                     </Link>
                   </div>
                 )}
@@ -165,10 +166,10 @@ export function AdminSidebar() {
                           : "text-gray-600 hover:text-gray-900"
                       )}
                     >
-                      <span>All Users</span>
+                      <span> Users</span>
                     </Link>
                     <Link
-                      href="/admin/users/add"
+                      href={adminRoutes.admin}
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
                         pathname === "/admin/users/add"
@@ -176,7 +177,7 @@ export function AdminSidebar() {
                           : "text-gray-600 hover:text-gray-900"
                       )}
                     >
-                      <span>Add Admin</span>
+                      <span> Admin</span>
                     </Link>
                   </div>
                 )}
@@ -210,7 +211,7 @@ export function AdminSidebar() {
             </nav>
           </div>
 
-          <div className="mt-auto p-4 border-t border-gray-200">
+          <div className="mt-auto  p-4 border-t border-gray-200">
             <div className="flex items-center space-x-3 mb-3">
               <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                 <span className="text-sm font-medium text-gray-700">JD</span>
