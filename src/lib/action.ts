@@ -10,6 +10,7 @@ import { loginSchemaType } from "./form-validation";
 import { auth } from "./firebase-init";
 import { Auth, signInWithEmailAndPassword } from "firebase/auth";
 import { cookies } from "next/headers";
+import { AuthError } from "firebase/auth";
 
 export async function uploadFile(
   file: File
@@ -51,32 +52,29 @@ export async function uploadFile(
   }
 }
 
-export async function signUp(auth: Auth, data: loginSchemaType) {
+export async function signIn(data: loginSchemaType) {
   try {
-    const response = await signInWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
       data.email,
       data.password
     );
+    const token = await userCredential.user.getIdToken();
 
-    if (!response.user) {
-      return handleApiError("Unauthorized");
-    }
-
-    const token = await response.user.getIdToken();
-    //console.log(token);
-    const cookieStore = await cookies();
-    cookieStore.set("token", token, {
-      //httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
+    // Set cookie server-side
+    const cookie = await cookies();
+    cookie.set("token", token, {
       maxAge: 60 * 60 * 24, // 1 day
       path: "/",
-      // sameSite: "strict", // CSRF protection
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
     });
 
-    // You could also return user info if needed
-    return { message: "Logged in", user: response.user };
-  } catch (err) {
-    handleApiError(err);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+    return { success: false, error: "Failed to sign in" };
   }
 }

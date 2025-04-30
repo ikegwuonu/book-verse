@@ -19,12 +19,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { adminRoutes, routes } from "@/lib/routes";
+import useScreenSize from "@/hooks/use-screen-size";
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [contentExpanded, setContentExpanded] = useState(true);
   const [usersExpanded, setUsersExpanded] = useState(true);
+  const { width } = useScreenSize();
+  const isMobile = width < 768;
 
   return (
     <>
@@ -40,7 +43,7 @@ export function AdminSidebar() {
       </div>
 
       {/* Mobile overlay */}
-      {isOpen && (
+      {isOpen && isMobile && (
         <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
@@ -50,12 +53,12 @@ export function AdminSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "sticky h-[calc(100vh-64px)] bottom-0 top-16 left-0 z-50 w-64 bg-white border-r border-gray-200 pt-2 transition-transform duration-300 ease-in-out md:translate-x-0  md:z-0",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          "sticky h-[calc(100vh-64px)]    bottom-0 top-16 left-0 z-50 w-64 min-w-56 bg-white border-r border-gray-200 pt-2 transition-transform duration-300 ease-in-out md:translate-x-0  md:z-0",
+          isOpen && isMobile ? " !block fixed !z-40 " : "md:block hidden z-50 "
         )}
       >
         <div className="flex flex-col h-full overflow-y-auto">
-          <div className="p-4">
+          <div className="p-4 ">
             <div className="flex items-center space-x-2 mb-6">
               <div className="h-8 w-8 rounded-md bg-navy-800 flex items-center justify-center">
                 <LayoutDashboard className="h-4 w-4 text-white" />
@@ -68,7 +71,7 @@ export function AdminSidebar() {
               </div>
             </div>
 
-            <nav className="space-y-1">
+            <nav className="space-y-1 ">
               <Link
                 href="/admin/dashboard"
                 className={cn(

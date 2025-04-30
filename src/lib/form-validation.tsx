@@ -43,7 +43,7 @@ export type addTextbookSchemaType = z.infer<typeof addTextbookSchema>;
 
 export const loginSchema = z.object({
   email: z.string().email().min(1, { message: "Email is required" }),
-  password: z.string().email().min(1, { message: "Password is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 export type loginSchemaType = z.infer<typeof loginSchema>;
 export const resetPwdSchema = z.object({

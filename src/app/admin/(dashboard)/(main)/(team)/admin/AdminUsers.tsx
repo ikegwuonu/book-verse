@@ -121,11 +121,14 @@ const AdminUsers = () => {
           </div>
         </div>
       </div>
-
+      {/* <div className="grid grid-cols-1 w-full">
+              <Table
+                variant="retro"
+                className="min-w-[700px] whitespace-nowrap overflow-x-auto w-full" */}
       {/* Admin Table */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <Table>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-32">
+        <div className="grid grid-cols-1 w-full">
+          <Table className="min-w-[700px] whitespace-nowrap overflow-x-auto w-full">
             <TableHeader>
               <TableRow>
                 <TableHead>Image</TableHead>

@@ -1,36 +1,59 @@
 "use client";
-
 import type React from "react";
-
-import { useState, useTransition } from "react";
+import { useContext, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
 import Link from "next/link";
-import { AlertCircle, Eye, EyeOff, Lock, Shield, User } from "lucide-react";
-import Header from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Eye, EyeOff, Lock, Shield, User } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, loginSchemaType } from "@/lib/form-validation";
-import { sign } from "crypto";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/lib/firebase-init";
-import { showerror } from "@/lib/toast";
+import { auth, db, doc, getDoc } from "@/lib/firebase-init";
 import { handleApiError } from "@/lib/utils";
-import { signUp } from "@/lib/action";
+import { useRouter } from "next/navigation";
+import { adminRoutes } from "@/lib/routes";
+import { FirebaseError } from "firebase/app";
+import { AdminContext, userInfoType } from "@/providers/admin-context";
 
 export default function AdminLoginPage() {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
-
-  const { register, handleSubmit } = useForm({
+  const { user, userInfo, setUserInfo, setUser } = useContext(AdminContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data: loginSchemaType) => {
     startTransition(async () => {
-      await signUp(auth, data);
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password
+        );
+
+        if (!userCredential.user) handleApiError("Unauthorized");
+        const emailRef = doc(db, "admin", data.email);
+        const emailDoc = await getDoc(emailRef);
+
+        if (emailDoc.exists()) {
+          const userInfo = emailDoc.data() as userInfoType;
+          setUserInfo(userInfo);
+        }
+        setUser(userCredential.user);
+        console.log(emailDoc);
+        console.log(userInfo);
+        console.log(user);
+        router.replace(adminRoutes.addMaterial);
+      } catch (error) {
+        handleApiError("Unauthorized");
+      }
     });
   };
 
@@ -67,6 +90,9 @@ export default function AdminLoginPage() {
                   {...register("email")}
                 />
               </div>
+              {errors.email && (
+                <p className="text-xs text-red-400">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -109,6 +135,11 @@ export default function AdminLoginPage() {
                   </span>
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-xs text-red-400">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center space-x-2">
@@ -124,9 +155,9 @@ export default function AdminLoginPage() {
             <Button
               type="submit"
               className="w-full bg-navy-800 hover:bg-navy-900"
-              disabled={isPending}
+              disabled={isPending || isSubmitting}
             >
-              {isPending ? "Signing in..." : "Sign in"}
+              {isPending || isSubmitting ? "Signing in..." : "Sign in"}
             </Button>
           </form>
 

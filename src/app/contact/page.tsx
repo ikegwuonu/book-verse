@@ -13,9 +13,7 @@ import Header from "@/components/Header";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-
+    <div className=" flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-navy-900 via-slate-800 to-slate-900 text-white py-20">

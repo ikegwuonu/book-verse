@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0  w-full z-10  transition-colors duration-300 ${
+      className={`sticky h-fit top-0  w-full z-10  transition-colors duration-300 ${
         scrolled
           ? "bg-navy-900 shadow-md"
           : "bg-gradient-to-r from-navy-900 via navy-900 via-slate-800 to-slate-900"
@@ -69,18 +69,19 @@ export default function Header() {
               <Input
                 type="search"
                 placeholder="Search books..."
-                className="w-[200px] lg:w-[300px] pl-8 bg-white/10 border-white/20 text-white placeholder:text-white/70 focus-visible:ring-white/30"
+                className="w-[200px] lg:w-[300px] pl-8 bg-white/10 border-white/20
+                 text-white placeholder:text-white/70 focus-visible:ring-white/30"
               />
             </div>
             <Button
               variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 hover:text-white"
+              className="border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
             >
               Sign In
             </Button>
-            <Button className="bg-navy-700 text-white hover:bg-navy-800">
+            {/* <Button className="bg-navy-700 text-white hover:bg-navy-800">
               Sign Up
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

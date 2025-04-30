@@ -26,11 +26,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { signUp } from "@/lib/firebase-auth";
 import { auth, db, doc, getDoc, setDoc } from "@/lib/firebase-init";
 import { showerror, showsuccess } from "@/lib/toast";
 import { uploadFile } from "@/lib/action";
-import Image from "next/image";
 import FileUpload from "@/components/FileUpload";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 

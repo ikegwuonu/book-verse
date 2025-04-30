@@ -201,10 +201,8 @@ const categories = [
 
 export default function ExplorePage() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-
-      <main className="flex-1 pt-16">
+    <div className=" flex flex-col">
+      <main className="flex-1 ">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-navy-900 via-slate-800 to-slate-900 text-white py-16 md:py-24">
           <div className="container mx-auto px-4">
@@ -213,9 +211,9 @@ export default function ExplorePage() {
                 Explore Our Collection
               </h1>
               <p className="text-lg text-white/80 mb-6">
-                Discover thousands of books across various categories. From
-                bestselling fiction to thought-provoking non-fiction, we have
-                something for every reader.
+                Discover materials & resuorces across various departments. From
+                pharmacolgy to pharmaceutics, we have something for every
+                student.
               </p>
               <div className="flex flex-wrap gap-3">
                 {categories.map((category) => (

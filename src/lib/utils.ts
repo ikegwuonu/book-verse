@@ -7,15 +7,16 @@ import { showerror } from "./toast";
 export const handleApiError = (error: any) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // const err = error?.response?.data?.errors as any[];
+  console.error(error);
   if (!navigator.onLine) {
     return showerror("No internet connection.");
   }
   if (error?.code === "ERR_NETWORK") {
     return showerror("Network error occurred.");
   }
-  // if (typeof error === "string") {
-  //   return showerror(error);
-  // }
+  if (typeof error === "string") {
+    return showerror(error);
+  }
 
   if (error?.data?.message) {
     return showerror(error?.data?.message);

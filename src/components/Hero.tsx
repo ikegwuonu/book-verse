@@ -6,10 +6,7 @@ import Header from "./Header";
 
 export default function Hero() {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Transparent Navbar */}
-      <Header />
-
+    <div className=" flex flex-col">
       {/* Hero Section with Gradient */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Gradient Background */}

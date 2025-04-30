@@ -4,11 +4,11 @@ import { showerror, showsuccess } from "./toast";
 import { app } from "./firebase-init";
 
 const auth = getAuth(app);
-export const actionCodeSettings = (email: string) => {
+export const actionCodeSettings = (email: string, context?: string) => {
   return {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
-    url: `http://localhost:3000/admin/dashboard/add-admin?email=${email}`,
+    url: `http://localhost:3000/admin/dashboard/add-admin?email=${email}&context=${context}`,
     // This must be true.
     handleCodeInApp: true,
 

@@ -11,6 +11,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPwdSchema, resetPwdSchemaType } from "@/lib/form-validation";
 import { handleApiError } from "@/lib/utils";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "@/lib/firebase-init";
+import { actionCodeSettings } from "@/lib/firebase-auth";
+import { showinfo } from "@/lib/toast";
 
 export default function ForgotPasswordPage() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -19,15 +23,19 @@ export default function ForgotPasswordPage() {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(resetPwdSchema),
   });
   const onSubmit = async (data: resetPwdSchemaType) => {
     startTransition(async () => {
       try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await sendPasswordResetEmail(
+          auth,
+          data.email,
+          actionCodeSettings(data.email, "resetPwd")
+        );
+        setIsSuccess(true);
       } catch (err) {
         handleApiError(err);
       }
@@ -73,6 +81,11 @@ export default function ForgotPasswordPage() {
                       {...register("email")}
                     />
                   </div>
+                  {errors.email && (
+                    <p className="text-xs text-red-400">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
                 <Button
