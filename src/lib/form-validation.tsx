@@ -18,6 +18,35 @@ export const addAdminSchema = z.object({
     // .refine((file) => file?.length < 1, { message: " File is required" })
     .refine((file) => file?.size <= 10 * 1024 * 1024, {
       message: "File must be less than 10MB",
-    }), // 10MB limit
+    }),
 });
 export type addAdminSchemaType = z.infer<typeof addAdminSchema>;
+
+export const addTextbookSchema = z.object({
+  author: z.string().min(1, { message: "Author is required" }),
+  cover: z
+    .any()
+    // .refine((file) => file?.length < 1, { message: " File is required" })
+    .refine((file) => file?.size <= 10 * 1024 * 1024, {
+      message: "File must be less than 10MB",
+    }),
+  department: z.string().min(1, { message: "Department is required" }),
+  edition: z.string().optional(),
+  faculty: z.string().min(1, { message: "Faculty is required" }),
+  note: z.string().optional(),
+  status: z.string(),
+  title: z.string().min(1, { message: "Title is required" }),
+  academic_level: z.string().min(1, { message: "Academic level is required" }),
+  keywords: z.string(),
+});
+export type addTextbookSchemaType = z.infer<typeof addTextbookSchema>;
+
+export const loginSchema = z.object({
+  email: z.string().email().min(1, { message: "Email is required" }),
+  password: z.string().email().min(1, { message: "Password is required" }),
+});
+export type loginSchemaType = z.infer<typeof loginSchema>;
+export const resetPwdSchema = z.object({
+  email: z.string().email().min(1, { message: "Email is required" }),
+});
+export type resetPwdSchemaType = z.infer<typeof resetPwdSchema>;

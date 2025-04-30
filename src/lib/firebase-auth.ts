@@ -1,7 +1,7 @@
 import { getAuth, sendSignInLinkToEmail } from "firebase/auth";
 import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { showerror, showsuccess } from "./toast";
-import { app } from "./firebase";
+import { app } from "./firebase-init";
 
 const auth = getAuth(app);
 export const actionCodeSettings = (email: string) => {

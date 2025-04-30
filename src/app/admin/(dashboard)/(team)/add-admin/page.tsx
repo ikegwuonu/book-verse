@@ -26,8 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { signUp } from "@/lib/auth";
-import { auth, db, doc, getDoc, setDoc } from "@/lib/firebase";
+import { signUp } from "@/lib/firebase-auth";
+import { auth, db, doc, getDoc, setDoc } from "@/lib/firebase-init";
 import { showerror, showsuccess } from "@/lib/toast";
 import { uploadFile } from "@/lib/action";
 import Image from "next/image";
@@ -93,7 +93,6 @@ export default function AddAdminPage() {
           </Link>
         </div>
 
-        {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl font-bold text-navy-900">Add New Admin</h1>
@@ -109,7 +108,6 @@ export default function AddAdminPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <FileUpload name="image" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* First Name */}
               <div className="space-y-2">
                 <Label htmlFor="first-name">
                   First Name <span className="text-red-500">*</span>
@@ -121,7 +119,6 @@ export default function AddAdminPage() {
                 />
               </div>
 
-              {/* Last Name */}
               <div className="space-y-2">
                 <Label htmlFor="last-name">
                   Last Name <span className="text-red-500">*</span>
@@ -134,7 +131,6 @@ export default function AddAdminPage() {
               </div>
             </div>
 
-            {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email">
                 Email Address <span className="text-red-500">*</span>
@@ -150,7 +146,6 @@ export default function AddAdminPage() {
               </p>
             </div>
 
-            {/* Role Selector */}
             <div className="space-y-3">
               <Label>
                 Admin Role <span className="text-red-500">*</span>
@@ -210,7 +205,6 @@ export default function AddAdminPage() {
               )}
             </div>
 
-            {/* Notes */}
             <div className="space-y-2">
               <Label htmlFor="notes">Notes (Optional)</Label>
               <Textarea
@@ -221,7 +215,6 @@ export default function AddAdminPage() {
               />
             </div>
 
-            {/* Send Invite Checkbox */}
             <div className="flex items-center space-x-2">
               <Checkbox id="send-invite" />
               <Label htmlFor="send-invite" className="text-sm font-medium">
@@ -229,7 +222,6 @@ export default function AddAdminPage() {
               </Label>
             </div>
 
-            {/* Form Actions */}
             <div className="flex justify-end gap-4 pt-4">
               <Button variant="outline" asChild>
                 <Link href="/admin/users">Cancel</Link>

@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { adminRoutes } from "@/lib/routes";
+import { adminRoutes, routes } from "@/lib/routes";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -169,7 +169,7 @@ export function AdminSidebar() {
                       <span> Users</span>
                     </Link>
                     <Link
-                      href={adminRoutes.admin}
+                      href={routes.admin}
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
                         pathname === "/admin/users/add"
@@ -184,7 +184,7 @@ export function AdminSidebar() {
               </div>
 
               <Link
-                href="/admin/analytics"
+                href={adminRoutes.analytics}
                 className={cn(
                   "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
                   pathname === "/admin/analytics"
@@ -197,7 +197,7 @@ export function AdminSidebar() {
               </Link>
 
               <Link
-                href="/admin/settings"
+                href={adminRoutes.settings}
                 className={cn(
                   "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
                   pathname === "/admin/settings"

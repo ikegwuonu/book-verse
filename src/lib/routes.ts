@@ -4,9 +4,11 @@ export const adminRoutes = {
   textbooks: "/admin/textbooks",
   addTextbook: "/admin/textbooks/add",
   addAdmin: "/admin/add-admin",
-  admin: "/admin/admin",
-  login: "/admin/login",
+  settings: "/admin/settings",
+  analytics: "/admin/analytics",
 };
 export const routes = {
   explore: "/explore",
+  admin: "/admin/admin",
+  login: "/admin/login",
 };

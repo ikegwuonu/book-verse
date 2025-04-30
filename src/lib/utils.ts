@@ -13,6 +13,9 @@ export const handleApiError = (error: any) => {
   if (error?.code === "ERR_NETWORK") {
     return showerror("Network error occurred.");
   }
+  // if (typeof error === "string") {
+  //   return showerror(error);
+  // }
 
   if (error?.data?.message) {
     return showerror(error?.data?.message);

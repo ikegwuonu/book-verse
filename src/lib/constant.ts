@@ -1,3 +1,116 @@
+// Mock data for charts
+export const userGrowthData = [
+  { month: "Jan", users: 1200 },
+  { month: "Feb", users: 1350 },
+  { month: "Mar", users: 1500 },
+  { month: "Apr", users: 1750 },
+  { month: "May", users: 2100 },
+  { month: "Jun", users: 2400 },
+  { month: "Jul", users: 2800 },
+  { month: "Aug", users: 3200 },
+  { month: "Sep", users: 3600 },
+  { month: "Oct", users: 4100 },
+  { month: "Nov", users: 4500 },
+  { month: "Dec", users: 5000 },
+];
+
+export const booksByCategoryData = [
+  { name: "Fiction", value: 1250, color: "#8884d8" },
+  { name: "Non-Fiction", value: 850, color: "#83a6ed" },
+  { name: "Science Fiction", value: 620, color: "#8dd1e1" },
+  { name: "Mystery", value: 580, color: "#82ca9d" },
+  { name: "Biography", value: 450, color: "#a4de6c" },
+  { name: "History", value: 380, color: "#d0ed57" },
+  { name: "Self-Help", value: 320, color: "#ffc658" },
+  { name: "Business", value: 280, color: "#ff8042" },
+];
+
+export const popularBooksData = [
+  {
+    title: "The Midnight Library",
+    author: "Matt Haig",
+    views: 4500,
+    borrows: 320,
+  },
+  { title: "Atomic Habits", author: "James Clear", views: 4200, borrows: 290 },
+  {
+    title: "Project Hail Mary",
+    author: "Andy Weir",
+    views: 3800,
+    borrows: 260,
+  },
+  {
+    title: "The Invisible Life of Addie LaRue",
+    author: "V.E. Schwab",
+    views: 3600,
+    borrows: 240,
+  },
+  {
+    title: "Klara and the Sun",
+    author: "Kazuo Ishiguro",
+    views: 3400,
+    borrows: 220,
+  },
+];
+
+export const userActivityData = [
+  { day: "Monday", logins: 450, searches: 1200, borrows: 85 },
+  { day: "Tuesday", logins: 480, searches: 1350, borrows: 92 },
+  { day: "Wednesday", logins: 520, searches: 1450, borrows: 105 },
+  { day: "Thursday", logins: 490, searches: 1380, borrows: 98 },
+  { day: "Friday", logins: 560, searches: 1580, borrows: 120 },
+  { day: "Saturday", logins: 680, searches: 1820, borrows: 145 },
+  { day: "Sunday", logins: 620, searches: 1650, borrows: 130 },
+];
+
+export const borrowsByAgeData = [
+  { age: "Under 18", borrows: 1250 },
+  { age: "18-24", borrows: 2450 },
+  { age: "25-34", borrows: 3200 },
+  { age: "35-44", borrows: 2800 },
+  { age: "45-54", borrows: 1950 },
+  { age: "55-64", borrows: 1200 },
+  { age: "65+", borrows: 850 },
+];
+
+export const contentGrowthData = [
+  { month: "Jan", books: 3200, textbooks: 1500 },
+  { month: "Feb", books: 3250, textbooks: 1520 },
+  { month: "Mar", books: 3320, textbooks: 1550 },
+  { month: "Apr", books: 3450, textbooks: 1580 },
+  { month: "May", books: 3600, textbooks: 1620 },
+  { month: "Jun", books: 3750, textbooks: 1680 },
+  { month: "Jul", books: 3900, textbooks: 1720 },
+  { month: "Aug", books: 4050, textbooks: 1780 },
+  { month: "Sep", books: 4200, textbooks: 1850 },
+  { month: "Oct", books: 4350, textbooks: 1920 },
+  { month: "Nov", books: 4500, textbooks: 1980 },
+  { month: "Dec", books: 4730, textbooks: 2050 },
+];
+
+export const engagementTrendsData = [
+  { month: "Jan", views: 12500, borrows: 850, completions: 720 },
+  { month: "Feb", views: 13200, borrows: 920, completions: 780 },
+  { month: "Mar", views: 14500, borrows: 1050, completions: 890 },
+  { month: "Apr", views: 15800, borrows: 1150, completions: 980 },
+  { month: "May", views: 17200, borrows: 1280, completions: 1090 },
+  { month: "Jun", views: 18900, borrows: 1420, completions: 1210 },
+  { month: "Jul", views: 20500, borrows: 1580, completions: 1340 },
+  { month: "Aug", views: 22000, borrows: 1720, completions: 1460 },
+  { month: "Sep", views: 23500, borrows: 1850, completions: 1570 },
+  { month: "Oct", views: 24800, borrows: 1950, completions: 1660 },
+  { month: "Nov", views: 26200, borrows: 2080, completions: 1770 },
+  { month: "Dec", views: 28000, borrows: 2200, completions: 1870 },
+];
+
+export const featureUsageData = [
+  { feature: "Search", usage: 42 },
+  { feature: "Browse Categories", usage: 28 },
+  { feature: "View Details", usage: 15 },
+  { feature: "Borrow", usage: 8 },
+  { feature: "Rate & Review", usage: 4 },
+  { feature: "Save to List", usage: 3 },
+];
 export const materials = [
   {
     id: "1",

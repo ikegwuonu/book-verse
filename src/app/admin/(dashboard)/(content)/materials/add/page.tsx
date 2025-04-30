@@ -126,7 +126,6 @@ export default function AddBookPage() {
     }
   };
 
-  // Handle tags
   const addTag = () => {
     if (currentTag.trim() && !tags.includes(currentTag.trim())) {
       setTags([...tags, currentTag.trim()]);
@@ -261,7 +260,6 @@ export default function AddBookPage() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      {/* Breadcrumb */}
       <div className="mb-6">
         <Link
           href="/admin/books"
@@ -272,7 +270,6 @@ export default function AddBookPage() {
         </Link>
       </div>
 
-      {/* Page Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center">
           <div className="h-12 w-12 rounded-full bg-navy-100 flex items-center justify-center mr-4">
@@ -287,7 +284,7 @@ export default function AddBookPage() {
         </div>
       </div>
 
-      {/* Book Form */}
+      {/*       
       <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
           <Tabs
@@ -319,7 +316,7 @@ export default function AddBookPage() {
             </div>
 
             <TabsContent value="basic" className="p-6 space-y-6">
-              {/* Title */}
+            
               <div className="space-y-2">
                 <Label htmlFor="title" className="text-gray-700">
                   Book Title <span className="text-red-500">*</span>
@@ -333,7 +330,7 @@ export default function AddBookPage() {
                 />
               </div>
 
-              {/* Authors */}
+              
               <div className="space-y-2">
                 <Label className="text-gray-700">
                   Author(s) <span className="text-red-500">*</span>
@@ -376,7 +373,7 @@ export default function AddBookPage() {
                 </div>
               </div>
 
-              {/* Genre */}
+              
               <div className="space-y-2">
                 <Label htmlFor="genre" className="text-gray-700">
                   Genre <span className="text-red-500">*</span>
@@ -396,7 +393,7 @@ export default function AddBookPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Publication Year */}
+                
                 <div className="space-y-2">
                   <Label htmlFor="publicationYear" className="text-gray-700">
                     Publication Year <span className="text-red-500">*</span>
@@ -413,7 +410,7 @@ export default function AddBookPage() {
                   />
                 </div>
 
-                {/* Publisher */}
+            
                 <div className="space-y-2">
                   <Label htmlFor="publisher" className="text-gray-700">
                     Publisher
@@ -428,7 +425,7 @@ export default function AddBookPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* ISBN */}
+              
                 <div className="space-y-2">
                   <Label htmlFor="isbn" className="text-gray-700">
                     ISBN <span className="text-red-500">*</span>
@@ -442,7 +439,7 @@ export default function AddBookPage() {
                   />
                 </div>
 
-                {/* Pages */}
+            
                 <div className="space-y-2">
                   <Label htmlFor="pages" className="text-gray-700">
                     Number of Pages
@@ -459,7 +456,7 @@ export default function AddBookPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Language */}
+            
                 <div className="space-y-2">
                   <Label htmlFor="language" className="text-gray-700">
                     Language
@@ -478,7 +475,7 @@ export default function AddBookPage() {
                   </Select>
                 </div>
 
-                {/* Format */}
+                
                 <div className="space-y-2">
                   <Label className="text-gray-700">Format</Label>
                   <RadioGroup
@@ -526,7 +523,7 @@ export default function AddBookPage() {
                 </div>
               </div>
 
-              {/* Description */}
+              
               <div className="space-y-2">
                 <Label htmlFor="description" className="text-gray-700">
                   Description <span className="text-red-500">*</span>
@@ -541,7 +538,7 @@ export default function AddBookPage() {
                 />
               </div>
 
-              {/* Status */}
+          
               <div className="space-y-2">
                 <Label className="text-gray-700">Status</Label>
                 <RadioGroup
@@ -582,7 +579,7 @@ export default function AddBookPage() {
 
             <TabsContent value="additional" className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Series */}
+                
                 <div className="space-y-2">
                   <Label htmlFor="series" className="text-gray-700">
                     Series
@@ -595,7 +592,7 @@ export default function AddBookPage() {
                   />
                 </div>
 
-                {/* Edition */}
+                
                 <div className="space-y-2">
                   <Label htmlFor="edition" className="text-gray-700">
                     Edition
@@ -609,7 +606,7 @@ export default function AddBookPage() {
                 </div>
               </div>
 
-              {/* Tags */}
+              
               <div className="space-y-2">
                 <Label htmlFor="tags" className="text-gray-700">
                   Tags
@@ -659,7 +656,7 @@ export default function AddBookPage() {
                 )}
               </div>
 
-              {/* Featured, New Release, Recommended */}
+              
               <div className="space-y-4 pt-2">
                 <div className="flex items-center space-x-2">
                   <Checkbox
@@ -806,7 +803,7 @@ export default function AddBookPage() {
           </Tabs>
         </div>
 
-        {/* Form Actions */}
+        
         <div className="flex justify-end space-x-4 mt-6">
           <Button variant="outline" type="button" asChild>
             <Link href="/admin/books">Cancel</Link>
@@ -819,7 +816,7 @@ export default function AddBookPage() {
             {isLoading ? "Adding Book..." : "Add Book"}
           </Button>
         </div>
-      </form>
+      </form> */}
     </div>
   );
 }

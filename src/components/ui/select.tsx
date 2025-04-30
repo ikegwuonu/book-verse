@@ -99,7 +99,7 @@ const SelectContent = React.forwardRef<
         <SelectScrollDownButton />
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
-    {error && <p className="text-red-400 text-sm">{error}</p>}
+    {error && <p className="text-red-400 text-xs">{error}</p>}
   </>
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
