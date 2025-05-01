@@ -1,4 +1,3 @@
-import { uploadFile } from "@/lib/action";
 import { auth, db } from "@/lib/firebase-init";
 import { addAdminSchemaType, loginSchemaType } from "@/lib/form-validation";
 import { showsuccess } from "@/lib/toast";
@@ -10,39 +9,36 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { uploadFile } from "./imagekit";
 
 export const addAdmin = async (data: addAdminSchemaType) => {
-  try {
-    const emailRef = doc(db, "admin", data.email);
-    const emailDoc = await getDoc(emailRef);
+  const emailRef = doc(db, "admin", data.email);
+  const emailDoc = await getDoc(emailRef);
 
-    if (emailDoc.exists()) {
-      throw new Error("Email already exists!");
-    }
-
-    const create = await createUserWithEmailAndPassword(
-      auth,
-      data.email,
-      data.last_name
-    );
-    if (!create.user) {
-      throw new Error("Failed to create user");
-    }
-
-    const uploadData = await uploadFile(data.image);
-
-    if (!uploadData || !uploadData.url) {
-      throw new Error("Imagekit error");
-    }
-    console.log(uploadData);
-    await setDoc(emailRef, {
-      ...data,
-      image: uploadData.url,
-      created_at: new Date(),
-    });
-  } catch (error) {
-    handleApiError(error);
+  if (emailDoc.exists()) {
+    throw new Error("Email already exists!");
   }
+
+  const create = await createUserWithEmailAndPassword(
+    auth,
+    data.email,
+    data.last_name
+  );
+  if (!create.user) {
+    throw new Error("Failed to create user");
+  }
+
+  const uploadData = await uploadFile(data.image);
+
+  if (!uploadData || !uploadData.url) {
+    throw new Error("Imagekit error");
+  }
+  console.log(uploadData);
+  await setDoc(emailRef, {
+    ...data,
+    image: uploadData.url,
+    created_at: new Date(),
+  });
 };
 export const logIn = async (data: loginSchemaType): Promise<IAdminInfo> => {
   try {

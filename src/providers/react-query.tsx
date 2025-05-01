@@ -1,6 +1,8 @@
 "use client";
+import { showerror } from "@/lib/toast";
 import { handleApiError } from "@/lib/utils";
 import {
+  MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
@@ -14,6 +16,11 @@ export default function ReactQuery({ children }: React.PropsWithChildren) {
         queryCache: new QueryCache({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onError: (error: any) => {
+            handleApiError(error);
+          },
+        }),
+        mutationCache: new MutationCache({
+          onError: (error, _variables, _context) => {
             handleApiError(error);
           },
         }),
