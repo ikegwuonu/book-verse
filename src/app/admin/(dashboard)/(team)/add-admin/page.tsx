@@ -26,19 +26,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { auth, db, doc, getDoc, setDoc } from "@/lib/firebase-init";
-import { showerror, showsuccess } from "@/lib/toast";
-import { uploadFile } from "@/lib/action";
 import FileUpload from "@/components/FileUpload";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useAddAdmin } from "@/react-query/auth";
 
 export default function AddAdminPage() {
-  const [isPending, startTransition] = useTransition();
+  const { mutateAsync: loginFn, isPending } = useAddAdmin();
 
   const form = useForm<addAdminSchemaType>({
     resolver: zodResolver(addAdminSchema),
   });
   const {
+    reset,
     register,
     control,
     handleSubmit,
@@ -52,30 +50,8 @@ export default function AddAdminPage() {
   console.log(errors);
   const onSubmit = async (data: addAdminSchemaType) => {
     console.log("Form data:", data);
-    startTransition(async () => {
-      try {
-        const emailRef = doc(db, "admin", data.email);
-        const emailDoc = await getDoc(emailRef);
-
-        if (emailDoc.exists()) {
-          return showerror("Email already exists!");
-        }
-
-        createUserWithEmailAndPassword(auth, data.email, data.last_name);
-        const uploadData = await uploadFile(data.image);
-        if (!uploadData || !uploadData.url) return;
-        await setDoc(emailRef, {
-          ...data,
-          image: uploadData.url,
-          created_at: new Date(),
-        });
-
-        showsuccess("Admin created successfully!");
-      } catch (err: any) {
-        console.error(err);
-        showerror(err.message || "Operation failed");
-      }
-    });
+    await loginFn(data);
+    //reset();
   };
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 import type React from "react";
-import { useContext, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
@@ -10,18 +10,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, loginSchemaType } from "@/lib/form-validation";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db, doc, getDoc } from "@/lib/firebase-init";
+import { auth, db } from "@/lib/firebase-init";
 import { handleApiError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { adminRoutes } from "@/lib/routes";
 import { FirebaseError } from "firebase/app";
-import { AdminContext, userInfoType } from "@/providers/admin-context";
+import { IAdminInfo } from "@/lib/types";
+import { useAdminProfileStore } from "@/zustand/adminProfile";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  // const {}=useLog
   const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
-  const { user, userInfo, setUserInfo, setUser } = useContext(AdminContext);
+  const { setAdminStore, adminStore } = useAdminProfileStore();
   const {
     register,
     handleSubmit,
@@ -43,13 +46,14 @@ export default function AdminLoginPage() {
         const emailDoc = await getDoc(emailRef);
 
         if (emailDoc.exists()) {
-          const userInfo = emailDoc.data() as userInfoType;
-          setUserInfo(userInfo);
+          const userInfo = emailDoc.data() as IAdminInfo;
+
+          setAdminStore(userInfo);
         }
-        setUser(userCredential.user);
+
         console.log(emailDoc);
-        console.log(userInfo);
-        console.log(user);
+        console.log(adminStore);
+
         router.replace(adminRoutes.addMaterial);
       } catch (error) {
         handleApiError("Unauthorized");

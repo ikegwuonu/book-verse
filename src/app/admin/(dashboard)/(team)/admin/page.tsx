@@ -7,7 +7,7 @@ import { adminRoutes } from "@/lib/routes";
 
 export default function AdminUsersPage() {
   return (
-    <main className="flex-1 bg-gray-50 p-6">
+    <main className="flex-1 ">
       <div className="max-w-6xl mx-auto w-fit">
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">

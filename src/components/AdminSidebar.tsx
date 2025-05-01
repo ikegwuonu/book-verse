@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   BarChart3,
   BookOpen,
@@ -20,19 +20,31 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { adminRoutes, routes } from "@/lib/routes";
 import useScreenSize from "@/hooks/use-screen-size";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase-init";
+import { useAdminProfileStore } from "@/zustand/adminProfile";
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [contentExpanded, setContentExpanded] = useState(true);
   const [usersExpanded, setUsersExpanded] = useState(true);
+  const { logOutAdminStore } = useAdminProfileStore();
+  const { logOutAdminStore: logOutFB } = useAdminProfileStore();
   const { width } = useScreenSize();
   const isMobile = width < 768;
+  const logout = async () => {
+    logOutAdminStore();
+    logOutFB();
+    await signOut(auth);
+    router.replace(routes.login);
+  };
 
   return (
     <>
       {/* Mobile sidebar toggle */}
-      <div className="fixed bottom-4 right-4 z-40 md:hidden">
+      <div className="fixed bottom-4 right-4 z-10 md:hidden">
         <Button
           onClick={() => setIsOpen(!isOpen)}
           size="icon"
@@ -45,7 +57,7 @@ export function AdminSidebar() {
       {/* Mobile overlay */}
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 z-10 md:hidden"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
@@ -53,8 +65,8 @@ export function AdminSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "sticky h-[calc(100vh-64px)]    bottom-0 top-16 left-0 z-50 w-64 min-w-56 bg-white border-r border-gray-200 pt-2 transition-transform duration-300 ease-in-out md:translate-x-0  md:z-0",
-          isOpen && isMobile ? " !block fixed !z-40 " : "md:block hidden z-50 "
+          "sticky h-[calc(100vh-64px)]    bottom-0 top-16 left-0 z-20 w-64 min-w-56 bg-white border-r border-gray-200 pt-2 transition-transform duration-300 ease-in-out md:translate-x-0  md:z-0",
+          isOpen && isMobile ? " !block fixed !z-10 " : "md:block hidden z-20 "
         )}
       >
         <div className="flex flex-col h-full overflow-y-auto">
@@ -172,7 +184,7 @@ export function AdminSidebar() {
                       <span> Users</span>
                     </Link>
                     <Link
-                      href={routes.admin}
+                      href={adminRoutes.admin}
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
                         pathname === "/admin/users/add"
@@ -225,6 +237,7 @@ export function AdminSidebar() {
               </div>
             </div>
             <Button
+              onClick={logout}
               variant="outline"
               size="sm"
               className="w-full justify-start text-gray-700"

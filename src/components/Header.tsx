@@ -2,13 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import useScreenSize from "@/hooks/use-screen-size";
 import { routes } from "@/lib/routes";
-import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
+import { Menu, Search } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Header() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+  const { width } = useScreenSize();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,33 +25,45 @@ export default function Header() {
       }
     };
 
-    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
-
-    // Call once to set initial state
     handleScroll();
 
-    // Clean up
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
-
+  const moveTo = (link: string) => {
+    setNavOpen((prev) => !prev);
+    router.push(link);
+  };
   return (
     <header
-      className={`sticky h-fit top-0  w-full z-10  transition-colors duration-300 ${
+      className={`sticky top-0 w-full z-10 transition-colors duration-300 ${
         scrolled
           ? "bg-navy-900 shadow-md"
           : "bg-gradient-to-r from-navy-900 via navy-900 via-slate-800 to-slate-900"
       }`}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative">
+        {/* Top bar */}
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center justify-between w-full md:w-auto">
             <Link href="/" className="text-2xl font-bold text-white">
               BookVerse
             </Link>
-            <nav className="hidden md:flex ml-10 space-x-8">
+            <Button
+              onClick={() => setNavOpen((prev) => !prev)}
+              variant="outline"
+              className="md:hidden ml-4 border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
+            >
+              <Menu />
+            </Button>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center justify-between w-full">
+            {/* Links */}
+            <nav className="ml-10 space-x-8">
               <Link
-                href="#"
+                href={routes.home}
                 className="text-white hover:text-white/80 transition-colors"
               >
                 Home
@@ -62,28 +81,88 @@ export default function Header() {
                 Textbooks
               </Link>
             </nav>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="relative hidden md:block">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-white/70" />
-              <Input
-                type="search"
-                placeholder="Search books..."
-                className="w-[200px] lg:w-[300px] pl-8 bg-white/10 border-white/20
-                 text-white placeholder:text-white/70 focus-visible:ring-white/30"
-              />
+
+            {/* Search & Auth */}
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-white/70" />
+                <Input
+                  type="search"
+                  placeholder="Search books..."
+                  className="w-[200px] lg:w-[300px] pl-8 bg-white/10 border-white/20
+                    text-white placeholder:text-white/70 focus-visible:ring-white/30"
+                />
+              </div>
+              <Button
+                asChild
+                variant="outline"
+                className="border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
+              >
+                <Link href={routes.login}>Sign In</Link>
+              </Button>
             </div>
-            <Button
-              variant="outline"
-              className="border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
-            >
-              Sign In
-            </Button>
-            {/* <Button className="bg-navy-700 text-white hover:bg-navy-800">
-              Sign Up
-            </Button> */}
           </div>
         </div>
+
+        {/* Mobile Nav (below top bar) */}
+        {navOpen && width < 768 && (
+          <div
+            className={cn(
+              " flex flex-col space-y-4 p-4 md:hidden fixed top-16 inset-x-0 z-10 transition-colors duration-300",
+
+              scrolled
+                ? "bg-navy-900 shadow-md"
+                : "bg-gradient-to-r from-navy-900 via navy-900 via-slate-800 to-slate-900"
+            )}
+          >
+            <nav className="flex flex-col space-y-2">
+              <Link
+                href={routes.home}
+                onClick={() => setNavOpen((prev) => !prev)}
+                className="text-white hover:text-white/80 transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                href={routes.explore}
+                onClick={() => setNavOpen((prev) => !prev)}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                Materials
+              </Link>
+              <Link
+                href={routes.explore}
+                onClick={() => setNavOpen((prev) => !prev)}
+                className="text-white/80 hover:text-white transition-colors"
+              >
+                Textbooks
+              </Link>
+            </nav>
+            <div className="flex flex-col space-y-2">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-white/70" />
+                <Input
+                  type="search"
+                  placeholder="Search books..."
+                  className="w-full pl-8 bg-white/10 border-white/20
+                    text-white placeholder:text-white/70 focus-visible:ring-white/30"
+                />
+              </div>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
+              >
+                <Link
+                  href={routes.login}
+                  onClick={() => setNavOpen((prev) => !prev)}
+                >
+                  Sign In
+                </Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

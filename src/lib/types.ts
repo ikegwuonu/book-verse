@@ -10,3 +10,12 @@ export type UploadFileResponse = {
   fileType: string;
   AItags: any;
 };
+export interface IAdminInfo {
+  created_at: string;
+  email: string;
+  first_name: string;
+  image: string;
+  last_name: string;
+  notes: string;
+  role: string;
+}

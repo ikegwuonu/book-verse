@@ -18,7 +18,7 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-1">
+        <div className="container mx-auto px-4 relative ">
           {/* <p className="text-2xl font-bold">Inspiration Meets Organization.</p> */}
 
           <div className="max-w-3xl mx-auto text-center">

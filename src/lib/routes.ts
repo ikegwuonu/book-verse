@@ -6,9 +6,10 @@ export const adminRoutes = {
   addAdmin: "/admin/add-admin",
   settings: "/admin/settings",
   analytics: "/admin/analytics",
+  admin: "/admin/admin",
 };
 export const routes = {
   explore: "/explore",
-  admin: "/admin/admin",
   login: "/admin/login",
+  home: "/",
 };

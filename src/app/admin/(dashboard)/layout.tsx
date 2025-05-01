@@ -1,25 +1,23 @@
 "use client";
 import type React from "react";
 import { AdminSidebar } from "@/components/AdminSidebar";
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { AdminContext } from "@/providers/admin-context";
-import { routes } from "@/lib/routes";
 import { Loader } from "@/providers/app-loader";
+import { useIsAuth } from "@/hooks/use-is-auth";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const { user } = useContext(AdminContext);
+  const isAuthReady = useIsAuth();
 
-  useEffect(() => {
-    if (!user.getIdToken) {
-      //showerror("Unauthorized");
-      router.replace(routes.login);
-    }
-  }, [router, user]);
-  if (!user) return null;
+  if (!isAuthReady) return <Loader />;
+
+  return (
+    <div className=" flex ">
+      <AdminSidebar />
+
+      <main className="w-full bg-gray-50 p-4 md:p-0 md:py-6">{children}</main>
+    </div>
+  );
 }
