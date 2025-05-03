@@ -8,6 +8,11 @@ export const config = {
       privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
     },
     firebaseServiceAcc: process.env.FIREBASE_SERVICE_ACCOUNT_KEY,
+    emailJS: {
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_KEY!,
+      templateId: process.env.TEMPLATE_ID!,
+      serviceId: process.env.SERVICE_ID!,
+    },
     // databaseUrl: process.env.DATABASE_URL!,
     // upstash: {
     //   redisUrl: process.env.UPSTASH_REDIS_URL!,

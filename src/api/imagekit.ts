@@ -29,6 +29,6 @@ export const uploadFile = async (
   const responseText = await uploadResponse.text();
 
   const uploadData: UploadFileResponse = JSON.parse(responseText);
-  console.log(uploadData);
+
   return uploadData;
 };

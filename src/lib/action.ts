@@ -39,7 +39,7 @@ export async function uploadFile(
     const responseText = await uploadResponse.text();
 
     const uploadData: UploadFileResponse = JSON.parse(responseText);
-    console.log(uploadData);
+
     return uploadData;
   } catch (error) {
     handleApiError(error);

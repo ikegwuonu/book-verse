@@ -47,11 +47,10 @@ export default function AddAdminPage() {
 
   const watchRole = watch("role");
   const selectedRole = roles.find((r) => r.id === watchRole);
-  console.log(errors);
+
   const onSubmit = async (data: addAdminSchemaType) => {
-    console.log("Form data:", data);
     await loginFn(data);
-    //reset();
+    reset();
   };
 
   return (

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import useScreenSize from "@/hooks/use-screen-size";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { useAdminFirebaseStore } from "@/zustand/adminFirebase";
 import { Slot } from "@radix-ui/react-slot";
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
@@ -16,6 +17,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const { width } = useScreenSize();
+  const { adminFirebaseStore } = useAdminFirebaseStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,18 +150,20 @@ export default function Header() {
                     text-white placeholder:text-white/70 focus-visible:ring-white/30"
                 />
               </div>
-              <Button
-                asChild
-                variant="outline"
-                className="w-full border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
-              >
-                <Link
-                  href={routes.login}
-                  onClick={() => setNavOpen((prev) => !prev)}
+              {!adminFirebaseStore.email && (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
                 >
-                  Sign In
-                </Link>
-              </Button>
+                  <Link
+                    href={routes.login}
+                    onClick={() => setNavOpen((prev) => !prev)}
+                  >
+                    Sign In
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         )}

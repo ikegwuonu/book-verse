@@ -18,6 +18,8 @@ import { FirebaseError } from "firebase/app";
 import { IAdminInfo } from "@/lib/types";
 import { useAdminProfileStore } from "@/zustand/adminProfile";
 import { doc, getDoc } from "firebase/firestore";
+import { logIn } from "@/api/auth";
+import WelcomeEmail from "@/emails/WelcomeEmail";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -33,32 +35,9 @@ export default function AdminLoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data: loginSchemaType) => {
-    startTransition(async () => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password
-        );
-
-        if (!userCredential.user) handleApiError("Unauthorized");
-        const emailRef = doc(db, "admin", data.email);
-        const emailDoc = await getDoc(emailRef);
-
-        if (emailDoc.exists()) {
-          const userInfo = emailDoc.data() as IAdminInfo;
-
-          setAdminStore(userInfo);
-        }
-
-        console.log(emailDoc);
-        console.log(adminStore);
-
-        router.replace(adminRoutes.addMaterial);
-      } catch (error) {
-        handleApiError("Unauthorized");
-      }
-    });
+    const adminInfo = await logIn(data);
+    setAdminStore(adminInfo);
+    router.replace(adminRoutes.home);
   };
 
   return (

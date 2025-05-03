@@ -7,6 +7,7 @@ export const adminRoutes = {
   settings: "/admin/settings",
   analytics: "/admin/analytics",
   admin: "/admin/admin",
+  home: "/admin",
 };
 export const routes = {
   explore: "/explore",

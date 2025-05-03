@@ -26,7 +26,7 @@ export default function AddTextbookPage() {
     handleSubmit,
     formState: { errors },
   } = addTextbokForm;
-  console.log(errors);
+
   // Form submission
   const onSubmit = (data: addTextbookSchemaType) => {
     console.log(data);

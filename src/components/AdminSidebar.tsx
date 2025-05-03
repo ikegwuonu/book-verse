@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -17,12 +17,13 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getInitials, roleMap } from "@/lib/utils";
 import { adminRoutes, routes } from "@/lib/routes";
 import useScreenSize from "@/hooks/use-screen-size";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase-init";
 import { useAdminProfileStore } from "@/zustand/adminProfile";
+import { useAdminFirebaseStore } from "@/zustand/adminFirebase";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -30,14 +31,21 @@ export function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [contentExpanded, setContentExpanded] = useState(true);
   const [usersExpanded, setUsersExpanded] = useState(true);
-  const { logOutAdminStore } = useAdminProfileStore();
-  const { logOutAdminStore: logOutFB } = useAdminProfileStore();
+  const {
+    logOutAdminStore,
+    adminStore: { first_name, last_name, role },
+  } = useAdminProfileStore();
+  const { logOutAdminFirebaseStore: logOutFB, adminFirebaseStore } =
+    useAdminFirebaseStore();
+  const { adminStore } = useAdminProfileStore();
+
   const { width } = useScreenSize();
   const isMobile = width < 768;
+
   const logout = async () => {
+    await signOut(auth);
     logOutAdminStore();
     logOutFB();
-    await signOut(auth);
     router.replace(routes.login);
   };
 
@@ -85,16 +93,16 @@ export function AdminSidebar() {
 
             <nav className="space-y-1 ">
               <Link
-                href="/admin/dashboard"
+                href="/admin/profile"
                 className={cn(
                   "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
-                  pathname === "/admin/dashboard"
+                  pathname === "/admin/profile"
                     ? "bg-navy-50 text-navy-900"
                     : "text-gray-700 hover:bg-gray-100"
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span>Dashboard</span>
+                <span>Profile</span>
               </Link>
 
               {/* Content Management Section */}
@@ -229,11 +237,17 @@ export function AdminSidebar() {
           <div className="mt-auto  p-4 border-t border-gray-200">
             <div className="flex items-center space-x-3 mb-3">
               <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
-                <span className="text-sm font-medium text-gray-700">JD</span>
+                <span className="text-sm font-medium text-gray-700">
+                  {getInitials(first_name, last_name)}
+                </span>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">John Doe</p>
-                <p className="text-xs text-gray-500">Super Admin</p>
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {first_name + " " + last_name}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {roleMap[role]}
+                </p>
               </div>
             </div>
             <Button

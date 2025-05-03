@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { toast } from "sonner";
 import { showerror } from "./toast";
+import { roles } from "./constant";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleApiError = (error: any) => {
@@ -13,6 +14,10 @@ export const handleApiError = (error: any) => {
   }
   if (error?.code === "ERR_NETWORK") {
     return showerror("Network error occurred.");
+  }
+
+  if (error?.message) {
+    return showerror(error.message);
   }
   if (typeof error == "string") {
     return showerror(error);
@@ -47,3 +52,9 @@ export const convertSecToMin = (val: number) => {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+export const getInitials = (firstName: string, lastName: string): string => {
+  return (firstName[0] + lastName[0]).toUpperCase();
+};
+export const roleMap = Object.fromEntries(
+  roles.map((role) => [role.id, role.name])
+);

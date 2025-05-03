@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { uploadFile } from "./imagekit";
+import { FirebaseError } from "firebase/app";
 
 export const addAdmin = async (data: addAdminSchemaType) => {
   const emailRef = doc(db, "admin", data.email);
@@ -33,7 +34,7 @@ export const addAdmin = async (data: addAdminSchemaType) => {
   if (!uploadData || !uploadData.url) {
     throw new Error("Imagekit error");
   }
-  console.log(uploadData);
+
   await setDoc(emailRef, {
     ...data,
     image: uploadData.url,
@@ -60,7 +61,14 @@ export const logIn = async (data: loginSchemaType): Promise<IAdminInfo> => {
     const userInfo = emailDoc.data() as IAdminInfo;
     return userInfo;
   } catch (error) {
-    handleApiError(error);
+    if (error instanceof FirebaseError) {
+      handleApiError(error.code);
+      handleApiError(error.message);
+      // You can now display a custom message based on error.code
+    } else {
+      handleApiError(error);
+    }
+
     throw error; // Ensure useMutation receives the error
   }
 };
