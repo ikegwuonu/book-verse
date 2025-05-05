@@ -7,6 +7,12 @@ import {
   addDoc,
   doc,
   collection,
+  getCountFromServer,
+  query,
+  orderBy,
+  limit,
+  startAfter,
+  getDocs,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -31,4 +37,16 @@ export const analyticsPromise = isSupported().then((supported) =>
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export { doc, setDoc, getDoc, collection, addDoc };
+export {
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  addDoc,
+  getCountFromServer,
+  query,
+  orderBy,
+  limit,
+  startAfter,
+  getDocs,
+};

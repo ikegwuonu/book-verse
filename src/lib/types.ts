@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type UploadFileResponse = {
   fileId: string;
   name: string;
@@ -18,4 +20,18 @@ export interface IAdminInfo {
   last_name: string;
   notes: string;
   role: string;
+}
+export interface IGetTextBook {
+  academic_level: string;
+  added_by: string;
+  author: string;
+  cover: string;
+  created_at: Timestamp;
+  department: string;
+  edition: string;
+  faculty: string;
+  isbn: string;
+  keywords: string;
+  status: string;
+  title: string;
 }
