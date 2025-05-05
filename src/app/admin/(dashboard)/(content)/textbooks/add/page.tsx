@@ -25,7 +25,7 @@ const tabFields: Record<
 > = {
   basic: ["title", "author", "edition", "isbn", "status"], // example fields from BasicTab
   academic: ["faculty", "department", "academic_level", "keywords"], // example fields from AcademicTab
-  cover: ["cover"], // example from ImageTab
+  cover: ["cover", "document"], // example from ImageTab
 };
 
 export default function AddTextbookPage() {

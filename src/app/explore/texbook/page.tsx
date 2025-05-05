@@ -47,7 +47,7 @@ export default function PDFViewer() {
       {/* PDF Viewer */}
       <Document
         file={{
-          url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          url: "https://ik.imagekit.io/ikegwuonu/JUNIOR_FRONTEND_DEVELOPER___TECHNICAL_ASSESSMENT__1__ZLnbcum6l.pdf",
         }}
         // or file={pdfFile}
         onLoadSuccess={onDocumentLoadSuccess}

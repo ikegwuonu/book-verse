@@ -24,11 +24,14 @@ export type addAdminSchemaType = z.infer<typeof addAdminSchema>;
 
 export const addTextbookSchema = z.object({
   author: z.string().min(1, { message: "Author is required" }),
+  document: z.any().refine((file) => file?.size <= 20 * 1024 * 1024, {
+    message: "Document must be less than 10MB",
+  }),
   cover: z
     .any()
     //.refine((file) => file?.length < 1, { message: " File is required" })
     .refine((file) => file?.size <= 10 * 1024 * 1024, {
-      message: "File must be less than 10MB",
+      message: "Image must be less than 10MB",
     }),
   department: z.string().min(1, { message: "Department is required" }),
   edition: z.string().optional(),

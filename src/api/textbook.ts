@@ -24,15 +24,21 @@ import { IGetTextBook, IUpdateTextbook } from "@/lib/types";
 export const addTextBook = async (
   data: addTextbookSchemaType & { added_by: string }
 ) => {
-  const uploadData = await uploadFile(data.cover);
+  const uploadImage = await uploadFile(data.cover);
 
-  if (!uploadData || !uploadData.url) {
-    console.error("eror image");
-    throw new Error("Imagekit error");
+  if (!uploadImage || !uploadImage.url) {
+    throw new Error("Image Imagekit error");
   }
+  const uploadDoc = await uploadFile(data.document);
+
+  if (!uploadDoc || !uploadDoc.url) {
+    throw new Error("Doc Imagekit error");
+  }
+
   const updatedData = {
     ...data,
-    cover: uploadData.url,
+    cover: uploadImage.url,
+    document: uploadDoc.url,
     added_by: data.added_by,
     created_at: new Date(),
   };
