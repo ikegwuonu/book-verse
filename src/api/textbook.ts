@@ -1,4 +1,7 @@
-import { addTextbookSchemaType } from "@/lib/form-validation";
+import {
+  addTextbookSchemaType,
+  updateTextbookSchemaType,
+} from "@/lib/form-validation";
 import {
   doc,
   setDoc,
@@ -12,9 +15,11 @@ import {
   limit,
   startAfter,
   getDocs,
+  deleteDoc,
+  updateDoc,
 } from "@/lib/firebase-init";
 import { uploadFile } from "./imagekit";
-import { IGetTextBook } from "@/lib/types";
+import { IGetTextBook, IUpdateTextbook } from "@/lib/types";
 
 export const addTextBook = async (
   data: addTextbookSchemaType & { added_by: string }
@@ -56,4 +61,24 @@ export const getAllTextbooks = async (): Promise<
     id: doc.id,
     ...(doc.data() as IGetTextBook),
   }));
+};
+export const deleteTextbook = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, "textbook", id));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateTextbook = async (id: string, data: IUpdateTextbook) => {
+  const textbookRef = doc(db, "textbook", id);
+  if (!textbookRef.id) throw new Error("Textbook not found");
+  try {
+    await updateDoc(textbookRef, {
+      ...data,
+    });
+    console.log("Textbook updated successfully");
+  } catch (error) {
+    throw new Error("Update error");
+  }
 };

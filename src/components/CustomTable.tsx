@@ -9,6 +9,7 @@ import {
 } from "./ui/table";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import CustomLoading from "./CustomLoading";
 export interface Column<T> {
   label: string;
   key: keyof T;
@@ -24,6 +25,7 @@ interface CustomTableProps<T> {
   totalItem: number;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  isLoading: boolean;
 }
 const CustomTable = <T extends Record<string, any>>({
   column,
@@ -34,45 +36,53 @@ const CustomTable = <T extends Record<string, any>>({
   itemsPerPage = 5,
   totalItem,
   setCurrentPage,
+  isLoading,
 }: CustomTableProps<T>) => {
   const totalPage = Math.ceil(totalItem / itemsPerPage);
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-32">
       <div className="grid grid-cols-1 w-full">
-        <Table className="min-w-[700px] whitespace-nowrap overflow-x-auto w-full">
-          <TableHeader>
-            <TableRow>
-              {column.map((col, i) => (
-                <TableHead key={`${i}`}>{col.label}</TableHead>
-              ))}
+        {isLoading ? (
+          <CustomLoading />
+        ) : (
+          <Table className="min-w-[700px] whitespace-nowrap overflow-x-auto w-full">
+            <TableHeader>
+              <TableRow>
+                {column.map((col, i) => (
+                  <TableHead key={`${i}`}>{col.label}</TableHead>
+                ))}
 
-              {/* <TableHead>Name</TableHead>
+                {/* <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Role</TableHead>
               <TableHead>Date Added</TableHead>
               <TableHead className="text-right">Actions</TableHead> */}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.length > 0 ? (
-              data.map((admin) => (
-                <TableRow key={admin.id}>
-                  {column.map((col) => (
-                    <TableCell key={`cell-${String(col.key)}`}>
-                      {col.render(admin)}{" "}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={column.length} className="h-24 text-center">
-                  No admin found.
-                </TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {data.length > 0 ? (
+                data.map((admin, i) => (
+                  <TableRow key={i}>
+                    {column.map((col, i) => (
+                      <TableCell key={`cell-${(String(col.key), i)}`}>
+                        {col.render(admin)}{" "}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={column.length}
+                    className="h-24 text-center"
+                  >
+                    No record found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
       </div>
 
       {/* Pagination */}

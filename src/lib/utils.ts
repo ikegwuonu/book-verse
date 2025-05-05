@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { toast } from "sonner";
 import { showerror } from "./toast";
 import { roles } from "./constant";
+import { Timestamp } from "firebase/firestore";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleApiError = (error: any) => {
@@ -58,3 +59,8 @@ export const getInitials = (firstName: string, lastName: string): string => {
 export const roleMap = Object.fromEntries(
   roles.map((role) => [role.id, role.name])
 );
+export const convertTimestamp = (timestamp: Timestamp | string) => {
+  return timestamp instanceof Timestamp
+    ? timestamp.toDate().toLocaleDateString()
+    : new Date(timestamp).toLocaleDateString();
+};

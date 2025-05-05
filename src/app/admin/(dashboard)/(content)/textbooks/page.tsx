@@ -20,10 +20,12 @@ import {
 
 import { adminRoutes } from "@/lib/routes";
 import CustomTable from "@/components/CustomTable";
-import { colums } from "./columns";
+import { columns } from "./columns";
 import { useGetTextBooks } from "@/api/react-query/textbook";
+import { useModal } from "@/zustand/modalStore";
 
 export default function TextbooksPage() {
+  const { openModal } = useModal();
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -146,7 +148,8 @@ export default function TextbooksPage() {
 
       {/* Textbooks Table */}
       <CustomTable
-        column={colums}
+        isLoading={isPending}
+        column={columns(openModal)}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalItem={data?.length || 5}

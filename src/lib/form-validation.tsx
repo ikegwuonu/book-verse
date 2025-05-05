@@ -51,3 +51,17 @@ export const resetPwdSchema = z.object({
   email: z.string().email().min(1, { message: "Email is required" }),
 });
 export type resetPwdSchemaType = z.infer<typeof resetPwdSchema>;
+export const updateTextbookSchema = z.object({
+  author: z.string().min(1, { message: "Author is required" }),
+  cover: z.string().min(1, { message: "Image url is required" }),
+  department: z.string().min(1, { message: "Department is required" }),
+  edition: z.string().optional(),
+  faculty: z.string().min(1, { message: "Faculty is required" }),
+  note: z.string().optional(),
+  status: z.string(),
+  title: z.string().min(1, { message: "Title is required" }),
+  academic_level: z.string().min(1, { message: "Academic level is required" }),
+  keywords: z.string(),
+  isbn: z.string().optional(),
+});
+export type updateTextbookSchemaType = z.infer<typeof updateTextbookSchema>;

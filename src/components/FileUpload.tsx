@@ -25,7 +25,7 @@ const FileUpload = ({ name }: { name: string }) => {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Please select an image file");
+      alert("lect an image file");
       return;
     }
 

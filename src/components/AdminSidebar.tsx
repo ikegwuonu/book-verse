@@ -168,7 +168,7 @@ export function AdminSidebar() {
                 >
                   <div className="flex items-center space-x-2">
                     <Users className="h-4 w-4" />
-                    <span>Users</span>
+                    <span>Team</span>
                   </div>
                   <ChevronDown
                     className={cn(
@@ -180,7 +180,7 @@ export function AdminSidebar() {
 
                 {usersExpanded && (
                   <div className="pl-9 space-y-1 mt-1">
-                    <Link
+                    {/* <Link
                       href="/admin/users"
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
@@ -190,7 +190,7 @@ export function AdminSidebar() {
                       )}
                     >
                       <span> Users</span>
-                    </Link>
+                    </Link> */}
                     <Link
                       href={adminRoutes.admin}
                       className={cn(

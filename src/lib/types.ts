@@ -35,3 +35,22 @@ export interface IGetTextBook {
   status: string;
   title: string;
 }
+export interface IGetAdmin {
+  role: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  notes?: string;
+  image: string;
+  created_at: Timestamp;
+}
+export interface IUpdateAdmin {
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+export interface IUpdateTextbook {
+  author: string;
+  title: string;
+  isbn?: string;
+}

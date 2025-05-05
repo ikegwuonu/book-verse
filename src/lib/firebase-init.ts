@@ -5,6 +5,7 @@ import {
   setDoc,
   getDoc,
   addDoc,
+  deleteDoc,
   doc,
   collection,
   getCountFromServer,
@@ -13,6 +14,7 @@ import {
   limit,
   startAfter,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -49,4 +51,6 @@ export {
   limit,
   startAfter,
   getDocs,
+  deleteDoc,
+  updateDoc,
 };

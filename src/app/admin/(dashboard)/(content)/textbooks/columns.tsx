@@ -13,13 +13,21 @@ import { Download, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Timestamp } from "firebase/firestore"; // Ensure this matches your Firebase setup
+import { useModal } from "@/zustand/modalStore";
+import ViewTextbookModal from "./ViewTextbookModal";
+import { convertTimestamp } from "@/lib/utils";
+import ConfirmDeleteModal from "./DeleteTextbookModal";
+import EditTextbookModal from "./EditTextbookModal";
 
 const statusBadgeColors: Record<string, string> = {
   published: "bg-green-100 text-green-800 hover:bg-green-200",
   draft: "bg-amber-100 text-amber-800 hover:bg-amber-200",
   review: "bg-blue-100 text-blue-800 hover:bg-blue-200",
 };
-export const colums: Column<IGetTextBook & { id: string }>[] = [
+
+export const columns = (
+  openModal: (type?: string, data?: React.ReactNode) => void
+): Column<IGetTextBook & { id: string }>[] => [
   {
     key: "cover",
     label: "Cover",
@@ -54,17 +62,17 @@ export const colums: Column<IGetTextBook & { id: string }>[] = [
     label: "ISBN",
     render: (item) => (
       <div>
-        {<p>{item.isbn}</p>} {item.edition && <p>{item.edition}</p>}
+        {<p>{item.isbn}</p>} {item.edition && <p>{item.edition} Edition</p>}
       </div>
     ),
   },
 
   {
-    key: "department",
-    label: "Department",
+    key: "faculty",
+    label: "Faculty",
     render: (item) => (
       <div>
-        <p>{item.faculty}</p>
+        <p className="font-semibold">{item.faculty}</p>
         <p>{item.department}</p>
       </div>
     ),
@@ -88,13 +96,7 @@ export const colums: Column<IGetTextBook & { id: string }>[] = [
   {
     key: "created_at",
     label: "Created At",
-    render: (item) => (
-      <p>
-        {item.created_at instanceof Timestamp
-          ? item.created_at.toDate().toLocaleDateString()
-          : new Date(item.created_at).toLocaleDateString()}
-      </p>
-    ),
+    render: (item) => <p>{convertTimestamp(item.created_at)}</p>,
   },
   {
     key: "id",
@@ -109,25 +111,42 @@ export const colums: Column<IGetTextBook & { id: string }>[] = [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <Link href={"/#"} className="flex items-center cursor-pointer">
+            <p
+              onClick={() =>
+                openModal("edit", <ViewTextbookModal textbook={item} />)
+              }
+              className="flex items-center cursor-pointer"
+            >
               <Eye className="h-4 w-4 mr-2" />
               View Details
-            </Link>
+            </p>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link
-              href={`/admin/textbooks/edit/${item.id}`}
+            <p
+              onClick={() =>
+                openModal("edit", <EditTextbookModal textbook={item} />)
+              }
               className="flex items-center cursor-pointer"
             >
               <Edit className="h-4 w-4 mr-2" />
               Edit
-            </Link>
+            </p>
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center cursor-pointer">
+          <DropdownMenuItem
+            className="flex items-center cursor-pointer"
+            onClick={() =>
+              openModal("edit", <ConfirmDeleteModal textbook={item} />)
+            }
+          >
             <Download className="h-4 w-4 mr-2" />
             Download
           </DropdownMenuItem>
-          <DropdownMenuItem className="text-red-600 focus:text-red-600 flex items-center cursor-pointer">
+          <DropdownMenuItem
+            onClick={() =>
+              openModal("edit", <ConfirmDeleteModal textbook={item} />)
+            }
+            className="text-red-600 focus:text-red-600 flex items-center cursor-pointer"
+          >
             <Trash2 className="h-4 w-4 mr-2" />
             Delete
           </DropdownMenuItem>
