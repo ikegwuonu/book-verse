@@ -2,6 +2,7 @@ import { config } from "@/lib/config";
 import { authenticator } from "@/lib/imagekit-auth";
 import { UploadFileResponse } from "@/lib/types";
 import { handleApiError } from "@/lib/utils";
+import { error } from "console";
 
 export const uploadFile = async (
   file: File

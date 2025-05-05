@@ -13,7 +13,7 @@ type ImageTabProps = {
   method: UseFormReturn<addTextbookSchemaType>;
 };
 const ImageTab = ({ method }: ImageTabProps) => {
-  const { setValue, trigger } = method;
+  const { setValue, trigger, clearErrors } = method;
   // Cover image
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null);
@@ -41,7 +41,7 @@ const ImageTab = ({ method }: ImageTabProps) => {
       const imageUrl = URL.createObjectURL(file);
       setCoverImageUrl(imageUrl);
       setValue("cover", file);
-      trigger();
+      //clearErrors("cover");
     }
   };
 
@@ -55,7 +55,6 @@ const ImageTab = ({ method }: ImageTabProps) => {
       fileInputRef.current.value = "";
     }
     setValue("cover", null);
-    trigger();
   };
   return (
     <TabsContent value="cover" className="p-6">

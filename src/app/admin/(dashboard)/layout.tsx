@@ -17,7 +17,7 @@ export default function RootLayout({
     <div className=" flex ">
       <AdminSidebar />
 
-      <main className="w-full bg-gray-50 p-4 md:p-0 md:py-6">{children}</main>
+      <main className="w-full bg-gray-50 p-4  md:py-6">{children}</main>
     </div>
   );
 }

@@ -27,10 +27,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import FileUpload from "@/components/FileUpload";
-import { useAddAdmin } from "@/react-query/auth";
+import { useAddAdmin } from "@/api/react-query/auth";
 
 export default function AddAdminPage() {
-  const { mutateAsync: loginFn, isPending } = useAddAdmin();
+  const { mutateAsync: addAdminFn, isPending } = useAddAdmin();
 
   const form = useForm<addAdminSchemaType>({
     resolver: zodResolver(addAdminSchema),
@@ -49,7 +49,7 @@ export default function AddAdminPage() {
   const selectedRole = roles.find((r) => r.id === watchRole);
 
   const onSubmit = async (data: addAdminSchemaType) => {
-    await loginFn(data);
+    await addAdminFn(data);
     reset();
   };
 

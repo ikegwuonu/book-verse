@@ -10,8 +10,8 @@ export const config = {
     firebaseServiceAcc: process.env.FIREBASE_SERVICE_ACCOUNT_KEY,
     emailJS: {
       publicKey: process.env.NEXT_PUBLIC_EMAILJS_KEY!,
-      templateId: process.env.TEMPLATE_ID!,
-      serviceId: process.env.SERVICE_ID!,
+      templateId: process.env.NEXT_PUBLIC_TEMPLATE_ID!,
+      serviceId: process.env.NEXT_PUBLIC_SERVICE_ID!,
     },
     // databaseUrl: process.env.DATABASE_URL!,
     // upstash: {

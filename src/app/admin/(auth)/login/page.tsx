@@ -20,11 +20,12 @@ import { useAdminProfileStore } from "@/zustand/adminProfile";
 import { doc, getDoc } from "firebase/firestore";
 import { logIn } from "@/api/auth";
 import WelcomeEmail from "@/emails/WelcomeEmail";
+import { useLogin } from "@/api/react-query/auth";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  // const {}=useLog
-  const [isPending, startTransition] = useTransition();
+  const { isPending, mutateAsync: loginFn } = useLogin();
+  // const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   const { setAdminStore, adminStore } = useAdminProfileStore();
   const {
@@ -35,7 +36,7 @@ export default function AdminLoginPage() {
     resolver: zodResolver(loginSchema),
   });
   const onSubmit = async (data: loginSchemaType) => {
-    const adminInfo = await logIn(data);
+    const adminInfo = await loginFn(data);
     setAdminStore(adminInfo);
     router.replace(adminRoutes.home);
   };

@@ -22,7 +22,6 @@ export function useIsAuth() {
       if (firebaseUser) {
         setAdminFirebaseStore(firebaseUser);
         setAuthChecked(true);
-        pathname === routes.login && router.replace(adminRoutes.admin);
       } else {
         logOutAdminFirebaseStore();
         router.replace(routes.login); // redirect if not authenticated

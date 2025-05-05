@@ -1,6 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  setDoc,
+  getDoc,
+  addDoc,
+  doc,
+  collection,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 // Firebase config
@@ -24,3 +31,4 @@ export const analyticsPromise = isSupported().then((supported) =>
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export { doc, setDoc, getDoc, collection, addDoc };

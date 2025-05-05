@@ -1,6 +1,5 @@
 // middleware.ts
 
-import { firebaseAdminAuth } from "@/lib/firebase-admin";
 import { adminRoutes } from "@/lib/routes";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,9 +10,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
   try {
-    const decoded = await firebaseAdminAuth.verifyIdToken(token);
-    console.log("Verified token for:", decoded.email);
-    return NextResponse.redirect(new URL("/", req.url));
+    // const decoded = await firebaseAdminAuth.verifyIdToken(token);
+    // console.log("Verified token for:", decoded.email);
+    // return NextResponse.redirect(new URL("/", req.url));
   } catch (err) {
     console.error("Token verification failed:", err);
     return NextResponse.redirect(new URL("/", req.url));

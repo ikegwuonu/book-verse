@@ -119,6 +119,18 @@ const BasicInfoTab = ({ method }: BasicInfoProps) => {
           />
         </div>
 
+        <div className="space-y-2">
+          <Label htmlFor="isbn" className="text-gray-700">
+            ISBN
+          </Label>
+          <Input
+            id="isbn"
+            error={errors.isbn?.message}
+            {...register("isbn")}
+            placeholder="e.g., 77787878"
+          />
+        </div>
+
         {/* Status */}
         <div className="space-y-2">
           <Label className="text-gray-700">Status</Label>

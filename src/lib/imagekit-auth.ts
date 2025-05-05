@@ -15,6 +15,6 @@ export const authenticator = async () => {
 
     return { signature, expire, token };
   } catch (error: any) {
-    throw new Error(`Authentication request failed: ${error.message}`);
+    throw new Error(`${error.message}`);
   }
 };

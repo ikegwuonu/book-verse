@@ -26,7 +26,7 @@ export const addTextbookSchema = z.object({
   author: z.string().min(1, { message: "Author is required" }),
   cover: z
     .any()
-    // .refine((file) => file?.length < 1, { message: " File is required" })
+    //.refine((file) => file?.length < 1, { message: " File is required" })
     .refine((file) => file?.size <= 10 * 1024 * 1024, {
       message: "File must be less than 10MB",
     }),
@@ -38,6 +38,7 @@ export const addTextbookSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   academic_level: z.string().min(1, { message: "Academic level is required" }),
   keywords: z.string(),
+  isbn: z.string().optional(),
 });
 export type addTextbookSchemaType = z.infer<typeof addTextbookSchema>;
 

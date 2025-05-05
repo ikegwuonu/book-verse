@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { MultiSelect } from "@/components/ui/multi-select";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { addTextbookSchemaType } from "@/lib/form-validation";
 import { X } from "lucide-react";
 import React, { useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 
 // Sample academic levels
 const academicLevels = ["100 ", "200", "300", "400", "500", "600", "All"];
@@ -146,7 +147,29 @@ const AcademicTab = ({ method }: AcademicInfoProps) => {
         <Label htmlFor="keywords" className="text-gray-700">
           Keywords
         </Label>
-        <div className="flex items-center gap-2">
+        <Controller
+          name="keywords" // must match your Zod schema
+          control={method.control}
+          render={({ field }) => (
+            <MultiSelect
+              options={[
+                { label: "Science", value: "science" },
+                { label: "Pharmacy", value: "pharmacy" },
+                { label: "Pharmacology", value: "pharmacology" },
+                { label: "Pharmacognosy", value: "pharmacognosy" },
+                { label: "Pharmaceutices", value: "pharmaceutics" },
+                { label: "Clinical Pharmacy", value: "pcn" },
+              ]}
+              selected={field.value?.split(" ") || []}
+              onChange={(selectedArray) => {
+                const stringValue = selectedArray.join(" "); // Or use "," if that's preferred
+                field.onChange(stringValue);
+              }}
+              //selected={[]}
+            />
+          )}
+        />
+        {/* <div className="flex items-center gap-2">
           <Input
             id="keywords"
             value={currentKeyword}
@@ -188,7 +211,7 @@ const AcademicTab = ({ method }: AcademicInfoProps) => {
               </div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </TabsContent>
   );
