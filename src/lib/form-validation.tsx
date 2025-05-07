@@ -68,3 +68,27 @@ export const updateTextbookSchema = z.object({
   isbn: z.string().optional(),
 });
 export type updateTextbookSchemaType = z.infer<typeof updateTextbookSchema>;
+export const addMaterialSchema = z.object({
+  topic: z.string().min(1, { message: "Topic is required" }),
+  lecturer: z.string().min(1, { message: "Lecturer is required" }),
+  year: z.string().min(1, { message: "Year is required" }),
+  department: z.string().min(1, { message: "Department is required" }),
+  faculty: z.string().min(1, { message: "Faculty is required" }),
+  course_code: z.string().min(1, { message: "Course code is required" }),
+  course_title: z.string().min(1, { message: "Course title is required" }),
+  status: z.string().min(1, { message: "Status is required" }),
+  format: z.string().min(1, { message: "Format is required" }),
+  level: z.string().min(1, { message: "Course level is required" }),
+  cover: z.string().min(1, { message: "Cover is required" }),
+  semester: z.string().min(1, { message: "Semester is required" }),
+  keywords: z.string(),
+  description: z.string(),
+
+  document: z
+    .any()
+    //.refine((file) => file?.length < 1, { message: " File is required" })
+    .refine((file) => file?.size <= 10 * 1024 * 1024, {
+      message: "Image must be less than 10MB",
+    }),
+});
+export type addMaterialSchemaType = z.infer<typeof addMaterialSchema>;

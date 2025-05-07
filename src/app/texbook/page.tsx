@@ -65,31 +65,6 @@ export default function PDFViewer() {
             scale={scale}
             renderTextLayer={true}
             renderAnnotationLayer={true}
-            customTextRenderer={({ str, itemIndex }) => {
-              const pageMatch = matches.find((m) => m.page === index + 1);
-              if (pageMatch) {
-                const isCurrent =
-                  matches[currentMatchIndex]?.page === index + 1 &&
-                  matches[currentMatchIndex]?.matchIndexes.includes(itemIndex);
-                const isHighlighted =
-                  pageMatch.matchIndexes.includes(itemIndex);
-                if (isCurrent) {
-                  return (
-                    <mark className="bg-orange-500 text-white rounded px-1">
-                      {str}
-                    </mark>
-                  );
-                }
-                if (isHighlighted) {
-                  return (
-                    <mark className="bg-yellow-300 text-black rounded px-1">
-                      {str}
-                    </mark>
-                  );
-                }
-              }
-              return str;
-            }}
           />
         ))}
       </Document>

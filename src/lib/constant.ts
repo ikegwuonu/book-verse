@@ -1,3 +1,40 @@
+export const format = [
+  { label: "Pdf", val: "pdf" },
+  { label: "MS Doc", val: "doc" },
+  { label: "Hand written", val: "hand" },
+];
+export const department = [
+  {
+    val: "Pharmacology",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/PCO.jpg?updatedAt=1746565335861",
+  },
+  {
+    val: "Pharmacognsy",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/download%20(4).jpg?updatedAt=1746565335757",
+  },
+  {
+    val: "Pharmaaceutical Microbiology",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/download%20(3).jpg?updatedAt=1746565335444",
+  },
+  {
+    val: "Pharmaceutical Chemistry",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/PCH-1.jpg?updatedAt=1746565335580",
+  },
+  {
+    val: "Pharmaceutics",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/PCT.jpg?updatedAt=1746565335502",
+  },
+  {
+    val: "Clinical Pharmacy",
+    url: "https://ik.imagekit.io/ikegwuonu/material%20cover/pcn2.jpg?updatedAt=1746565335803",
+  },
+  { val: "Physiology", url: "" },
+  { val: "Biochemistry", url: "" },
+  { val: "Anatomy", url: "" },
+  { val: "Mathematics", url: "" },
+];
+export const faculties = ["Pharmacy"];
+
 // Mock data for charts
 export const userGrowthData = [
   { month: "Jan", users: 1200 },
@@ -456,104 +493,7 @@ export const textbooks = [
   },
 ];
 // Sample data for admins
-export const admins = [
-  {
-    id: "1",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@bookverse.com",
-    role: "Super Admin",
-    roleId: "super-admin",
-    dateAdded: new Date("2023-01-15"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Main administrator responsible for system setup and configuration. Has full access to all features and settings.",
-  },
-  {
-    id: "2",
-    firstName: "Jane",
-    lastName: "Smith",
-    email: "jane.smith@bookverse.com",
-    role: "Content Manager",
-    roleId: "content-manager",
-    dateAdded: new Date("2023-03-22"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Manages book catalog and content updates. Responsible for new releases and featured collections.",
-  },
-  {
-    id: "3",
-    firstName: "Robert",
-    lastName: "Johnson",
-    email: "robert.j@bookverse.com",
-    role: "User Manager",
-    roleId: "user-manager",
-    dateAdded: new Date("2023-05-10"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Handles user account issues and subscription management. Primary contact for customer support escalations.",
-  },
-  {
-    id: "4",
-    firstName: "Emily",
-    lastName: "Williams",
-    email: "emily.w@bookverse.com",
-    role: "Analytics Viewer",
-    roleId: "analytics-viewer",
-    dateAdded: new Date("2023-07-05"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Monitors platform analytics and creates monthly performance reports for the management team.",
-  },
-  {
-    id: "5",
-    firstName: "Michael",
-    lastName: "Brown",
-    email: "michael.b@bookverse.com",
-    role: "Content Manager",
-    roleId: "content-manager",
-    dateAdded: new Date("2023-08-18"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Specializes in academic content and educational partnerships. Works with publishers to expand our catalog.",
-  },
-  {
-    id: "6",
-    firstName: "Sarah",
-    lastName: "Davis",
-    email: "sarah.d@bookverse.com",
-    role: "Super Admin",
-    roleId: "super-admin",
-    dateAdded: new Date("2023-10-30"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Technical administrator responsible for system maintenance and security updates.",
-  },
-  {
-    id: "7",
-    firstName: "David",
-    lastName: "Miller",
-    email: "david.m@bookverse.com",
-    role: "User Manager",
-    roleId: "user-manager",
-    dateAdded: new Date("2024-01-12"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Focuses on premium subscriptions and VIP user management. Handles billing issues and payment processing.",
-  },
-  {
-    id: "8",
-    firstName: "Lisa",
-    lastName: "Wilson",
-    email: "lisa.w@bookverse.com",
-    role: "Analytics Viewer",
-    roleId: "analytics-viewer",
-    dateAdded: new Date("2024-02-28"),
-    image: "/placeholder.svg?height=40&width=40",
-    notes:
-      "Specializes in user engagement metrics and retention analysis. Creates targeted marketing recommendations.",
-  },
-];
+
 // Define admin role types and permissions
 export const roles = [
   {

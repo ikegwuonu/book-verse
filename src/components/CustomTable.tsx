@@ -51,12 +51,6 @@ const CustomTable = <T extends Record<string, any>>({
                 {column.map((col, i) => (
                   <TableHead key={`${i}`}>{col.label}</TableHead>
                 ))}
-
-                {/* <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Date Added</TableHead>
-              <TableHead className="text-right">Actions</TableHead> */}
               </TableRow>
             </TableHeader>
             <TableBody>

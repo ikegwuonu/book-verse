@@ -64,3 +64,29 @@ export const convertTimestamp = (timestamp: Timestamp | string) => {
     ? timestamp.toDate().toLocaleDateString()
     : new Date(timestamp).toLocaleDateString();
 };
+//  // Function to render star rating
+//  const renderRating = (rating: number, book: any) => {
+//   const fullStars = Math.floor(rating);
+//   const hasHalfStar = rating % 1 >= 0.5;
+
+//   return (
+//     <div className="flex items-center">
+//       <div className="flex mr-1">
+//         {[...Array(5)].map((_, i) => (
+//           <Star
+//             key={i}
+//             className={`h-4 w-4 ${
+//               i < fullStars
+//                 ? "text-yellow-500 fill-yellow-500"
+//                 : i === fullStars && hasHalfStar
+//                   ? "text-yellow-500 fill-yellow-500"
+//                   : "text-gray-300"
+//             }`}
+//           />
+//         ))}
+//       </div>
+//       <span className="text-sm text-gray-600">{rating.toFixed(1)}</span>
+//       <span className="text-xs text-gray-500 ml-1">({book.reviews})</span>
+//     </div>
+//   );
+// };

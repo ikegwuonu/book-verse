@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <InfiniteBookScroll />
-      <Discover />
+      {/* <InfiniteBookScroll />
+      <Discover /> */}
       <Footer />
     </>
   );

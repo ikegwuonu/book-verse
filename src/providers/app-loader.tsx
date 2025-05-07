@@ -3,11 +3,11 @@ import { LayoutDashboard } from "lucide-react";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 
 export default function AppLoader({ children }: PropsWithChildren) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
   }, []);
-  return !isLoading ? <Loader /> : children;
+  return isLoading ? <Loader /> : children;
 }
 export const Loader = () => {
   return (

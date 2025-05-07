@@ -124,7 +124,6 @@ const AcademicTab = ({ method }: AcademicInfoProps) => {
           {...register("faculty")}
           onValueChange={(val) => {
             setValue("faculty", val);
-            trigger();
           }}
           value={watch("faculty")}
         >

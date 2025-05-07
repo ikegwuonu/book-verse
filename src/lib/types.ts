@@ -54,3 +54,22 @@ export interface IUpdateTextbook {
   title: string;
   isbn?: string;
 }
+export interface IGetMaterial {
+  added_by: string;
+  course_code: string;
+  course_title: string;
+  cover: string;
+  created_at: Timestamp;
+  department: string;
+  description: string;
+  document: string;
+  faculty: string;
+  format: string;
+  keywords: string;
+  lecturer: string;
+  level: string;
+  status: string;
+  topic: string;
+  year: string;
+  semester: string;
+}

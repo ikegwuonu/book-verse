@@ -47,15 +47,6 @@ export const addTextBook = async (
   if (!docRef.id) throw new Error("Firebase error");
 };
 
-interface GetTextbooksProps {
-  totalCount: number;
-  totalPages: number;
-  textbooks: (IGetTextBook & { id: string })[];
-}
-
-let lastVisible: any = null;
-const pageSize = 10;
-
 export const getAllTextbooks = async (): Promise<
   (IGetTextBook & { id: string })[]
 > => {
