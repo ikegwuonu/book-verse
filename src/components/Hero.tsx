@@ -58,15 +58,15 @@ export default function Hero() {
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <p className="text-3xl font-bold text-white">10K+</p>
-                <p className="text-white/80">Books</p>
+                <p className="text-white/80">Materials</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-white">5K+</p>
-                <p className="text-white/80">Authors</p>
+                <p className="text-white/80">Textbooks</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-white">50+</p>
-                <p className="text-white/80">Categories</p>
+                <p className="text-white/80">Departments</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-white">100K+</p>

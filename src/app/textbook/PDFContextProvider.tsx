@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { PDFContext } from "./PDFContext";
-import PDFViewer from "./page";
+import PDFViewer from "./[url]/page";
 import PDFControl from "./PDF-Control";
 
 const PDFContextProvider = ({ children }: { children: React.ReactNode }) => {

@@ -28,6 +28,7 @@ export interface IGetTextBook {
   cover: string;
   created_at: Timestamp;
   department: string;
+  document: string;
   edition: string;
   faculty: string;
   isbn: string;

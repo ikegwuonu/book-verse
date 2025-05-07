@@ -15,8 +15,7 @@ import {
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
-import React, { useContext } from "react";
-import { PDFContext } from "./PDFContext";
+import React from "react";
 import { pdfjs } from "react-pdf";
 import { z } from "zod";
 import { useForm } from "react-hook-form";

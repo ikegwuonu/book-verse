@@ -1,205 +1,21 @@
+"use client";
+import { useGetMaterial } from "@/api/react-query/material";
+import { useGetTextBooks } from "@/api/react-query/textbook";
 import { BookCategorySection } from "@/components/CategorySection";
 import { Footer } from "@/components/Footer";
-import Header from "@/components/Header";
+import { TextbooksSection } from "@/components/TextbooksSection";
+import { department } from "@/lib/constant";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-// Sample data - in a real app, this would come from an API or database
-const categories = [
-  {
-    id: "fiction",
-    name: "Fiction",
-    description: "Bestselling fiction books across various genres",
-    books: [
-      {
-        id: "f1",
-        title: "The Midnight Library",
-        author: "Matt Haig",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "f2",
-        title: "The Invisible Life of Addie LaRue",
-        author: "V.E. Schwab",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "f3",
-        title: "Project Hail Mary",
-        author: "Andy Weir",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "f4",
-        title: "The Four Winds",
-        author: "Kristin Hannah",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "f5",
-        title: "Klara and the Sun",
-        author: "Kazuo Ishiguro",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "f6",
-        title: "The Last Thing He Told Me",
-        author: "Laura Dave",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-    ],
-  },
-  {
-    id: "non-fiction",
-    name: "Non-Fiction",
-    description: "Thought-provoking non-fiction for curious minds",
-    books: [
-      {
-        id: "nf1",
-        title: "Atomic Habits",
-        author: "James Clear",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "nf2",
-        title: "Educated",
-        author: "Tara Westover",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "nf3",
-        title: "Sapiens",
-        author: "Yuval Noah Harari",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "nf4",
-        title: "Becoming",
-        author: "Michelle Obama",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "nf5",
-        title: "The Body Keeps the Score",
-        author: "Bessel van der Kolk",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-    ],
-  },
-  {
-    id: "sci-fi",
-    name: "Science Fiction",
-    description: "Explore new worlds and futuristic concepts",
-    books: [
-      {
-        id: "sf1",
-        title: "Dune",
-        author: "Frank Herbert",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "sf2",
-        title: "The Three-Body Problem",
-        author: "Liu Cixin",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "sf3",
-        title: "Neuromancer",
-        author: "William Gibson",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "sf4",
-        title: "Snow Crash",
-        author: "Neal Stephenson",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "sf5",
-        title: "The Fifth Season",
-        author: "N.K. Jemisin",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-    ],
-  },
-  {
-    id: "mystery",
-    name: "Mystery & Thriller",
-    description: "Page-turning suspense and intrigue",
-    books: [
-      {
-        id: "m1",
-        title: "The Silent Patient",
-        author: "Alex Michaelides",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "m2",
-        title: "Gone Girl",
-        author: "Gillian Flynn",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "m3",
-        title: "The Girl with the Dragon Tattoo",
-        author: "Stieg Larsson",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "m4",
-        title: "The Guest List",
-        author: "Lucy Foley",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "m5",
-        title: "The Thursday Murder Club",
-        author: "Richard Osman",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-    ],
-  },
-  {
-    id: "biography",
-    name: "Biography",
-    description: "Fascinating lives and personal journeys",
-    books: [
-      {
-        id: "b1",
-        title: "Steve Jobs",
-        author: "Walter Isaacson",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "b2",
-        title: "Born a Crime",
-        author: "Trevor Noah",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "b3",
-        title: "The Code Breaker",
-        author: "Walter Isaacson",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "b4",
-        title: "A Promised Land",
-        author: "Barack Obama",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-      {
-        id: "b5",
-        title: "Greenlights",
-        author: "Matthew McConaughey",
-        coverUrl: "/placeholder.svg?height=280&width=180",
-      },
-    ],
-  },
-];
-
 export default function ExplorePage() {
+  const { data: materialsData, isPending } = useGetMaterial();
+  const { data: textbookData } = useGetTextBooks();
+  const textbooks = textbookData || [];
+  const materials = materialsData || [];
+  const uniqueDepartments = Array.from(
+    new Set(materials?.map((item) => item.department)) || []
+  );
   return (
     <div className=" flex flex-col">
       <main className="flex-1 ">
@@ -216,13 +32,13 @@ export default function ExplorePage() {
                 student.
               </p>
               <div className="flex flex-wrap gap-3">
-                {categories.map((category) => (
+                {uniqueDepartments.map((dpt) => (
                   <Link
-                    key={category.id}
-                    href={`/category/${category.id}`}
+                    key={dpt}
+                    href={`/dpt/${dpt}`}
                     className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm font-medium transition-colors"
                   >
-                    {category.name}
+                    {dpt}
                   </Link>
                 ))}
               </div>
@@ -234,9 +50,21 @@ export default function ExplorePage() {
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="space-y-16">
-              {categories.map((category) => (
-                <BookCategorySection key={category.id} category={category} />
-              ))}
+              {uniqueDepartments.map((dpt, index) => {
+                const materialsByDpt = materials.filter(
+                  (item, i) => item.department === dpt
+                );
+                return (
+                  <BookCategorySection
+                    key={index}
+                    category={materialsByDpt}
+                    dpt={dpt}
+                  />
+                );
+              })}
+            </div>
+            <div className="space-y-16">
+              <TextbooksSection category={textbooks} />
             </div>
           </div>
         </section>

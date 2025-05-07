@@ -1,9 +1,30 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import FooterLinks from "./FooterLinks";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  subscribeNewsletterSchema,
+  subscribeNewsletterSchemaType,
+} from "@/lib/form-validation";
+
+import { useSubscribeNewsletter } from "@/api/react-query/newsletter";
 
 export function Footer() {
+  const { mutateAsync: subscribeFn, isPending } = useSubscribeNewsletter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(subscribeNewsletterSchema),
+  });
+  const onSubmit = async (data: subscribeNewsletterSchemaType) => {
+    await subscribeFn(data);
+  };
   return (
     <footer className="bg-navy-900 text-white">
       {/* Newsletter Section */}
@@ -18,16 +39,26 @@ export function Footer() {
               reading progress, and connect with fellow book lovers through
               BookVerse's digital library platform.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col sm:flex-row gap-3"
+            >
               <Input
-                type="email"
+                {...register("email")}
                 placeholder="Enter your email"
                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 max-w-xs"
               />
-              <Button className="bg-white text-navy-900 hover:bg-white/90">
-                Subscribe to Newsletter
+              <Button
+                disabled={isPending}
+                type="submit"
+                className="bg-white text-navy-900 hover:bg-white/90"
+              >
+                {isPending ? "Subscribing..." : " Subscribe to Newsletter"}
               </Button>
-            </div>
+            </form>
+            {errors.email && (
+              <p className="text-xs text-white">{errors.email.message}</p>
+            )}
           </div>
           <div className="hidden md:flex justify-end">
             <div className="relative w-32 h-32">
@@ -49,239 +80,7 @@ export function Footer() {
       <hr className="border-white/10" />
 
       {/* Links Section */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Explore</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  New Releases
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Bestsellers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Audiobooks
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Book Clubs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Reading Challenges
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Categories</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Fiction
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Non-Fiction
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Science Fiction
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Mystery & Thriller
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Biography
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Account</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Sign Up
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  My Library
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Reading History
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Preferences
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Company</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Partners
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Press
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Legal</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Cookie Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Copyright
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-white text-sm"
-                >
-                  Accessibility
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <FooterLinks />
 
       {/* Bottom Section */}
       <div className="bg-navy-900 border-t border-white/10">

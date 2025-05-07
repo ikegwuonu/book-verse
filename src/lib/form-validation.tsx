@@ -92,3 +92,9 @@ export const addMaterialSchema = z.object({
     }),
 });
 export type addMaterialSchemaType = z.infer<typeof addMaterialSchema>;
+export const subscribeNewsletterSchema = z.object({
+  email: z.string().email().min(1, { message: "Email is required" }),
+});
+export type subscribeNewsletterSchemaType = z.infer<
+  typeof subscribeNewsletterSchema
+>;

@@ -45,7 +45,7 @@ export const PDFContext = createContext<IState>({
   isFullscreen: false,
   setIsFullscreen: () => {},
 
-  pdfFile: "/sample.pdf",
+  pdfFile: "",
   setPdfFile: () => {},
 
   searchText: "",

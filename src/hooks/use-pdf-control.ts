@@ -8,7 +8,7 @@ export default function usePdfControl() {
   const [scale, setScale] = useState<number>(1.0);
   const [rotation, setRotation] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [pdfFile, setPdfFile] = useState<string>("/sample.pdf");
+  const [pdfFile, setPdfFile] = useState<string>("");
   const [searchText, setSearchText] = useState<string>("");
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isPageNav, setIsPageNav] = useState<boolean>(false);
