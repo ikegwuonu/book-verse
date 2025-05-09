@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import Header from "./Header";
+import { routes } from "@/lib/routes";
 
 export default function Hero() {
   return (
@@ -21,39 +22,38 @@ export default function Hero() {
         <div className="container mx-auto px-4 relative ">
           {/* <p className="text-2xl font-bold">Inspiration Meets Organization.</p> */}
 
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center py-8 md:py-0">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Your World of Knowledge,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white">
+              <span className=" text-white md:text-transparent bg-clip-text md:bg-gradient-to-r from-gray-200 to-white bg-transparent">
                 Digitized
               </span>
             </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Curate your learning journey. Store your notes, books, and
-              materials in a beautifully crafted digital library. Discover
-              resources in our comprehensive digital library. Read anywhere,
-              anytime, on any device.
+            <p className="md:text-xl text-white/90 mb-8 text-base">
+              Curate your learning journey. Discover resources in our
+              comprehensive digital library.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
+                asChild
                 size="lg"
                 className="bg-navy-700 text-white hover:bg-navy-800"
               >
-                {" "}
-                Get Started
+                <Link href={routes.explore}>Get Started</Link>
               </Button>
               <Button
                 size="lg"
+                asChild
                 variant="outline"
                 className="border-white/20 bg-slate-400 text-white hover:bg-white/10"
               >
-                Explore Collection
+                <Link href={routes.explore}> Explore Collection</Link>
               </Button>
             </div>
             <p className="text-slate-300 text-sm py-4">
               Your ideas deserve a home. ✨
             </p>
-
+            {/*gemini AIzaSyDRomnBdo2UiYLrtf6tWWYyJLpqmuUX63M */}
             {/* Stats */}
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">

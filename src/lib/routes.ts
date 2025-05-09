@@ -13,4 +13,8 @@ export const routes = {
   explore: "/explore",
   login: "/admin/login",
   home: "/",
+  material: (url: string) => `/material?url${url}`,
+  textbook: (url: string) => `/textbook?url${url}`,
+  allTextbook: "/explore#textbook",
+  materialByDept: (dpt: string) => `/explore#${dpt}`,
 };

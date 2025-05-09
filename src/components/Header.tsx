@@ -10,7 +10,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Header() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const { width } = useScreenSize();
   const { adminFirebaseStore } = useAdminFirebaseStore();
-
+  const ref = useRef<null | HTMLInputElement>(null);
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
@@ -32,9 +32,14 @@ export default function Header() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
-  const moveTo = (link: string) => {
-    setNavOpen((prev) => !prev);
-    router.push(link);
+  // Handle Enter key press
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && ref.current) {
+      const searchQuery = ref.current.value.trim(); // Get the input value
+      if (searchQuery) {
+        router.push(`/search?search=${searchQuery}`);
+      }
+    }
   };
   return (
     <header
@@ -77,7 +82,7 @@ export default function Header() {
                 Materials
               </Link>
               <Link
-                href="#"
+                href={routes.allTextbook}
                 className="text-white/80 hover:text-white transition-colors"
               >
                 Textbooks
@@ -89,7 +94,9 @@ export default function Header() {
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-white/70" />
                 <Input
+                  onKeyDown={handleKeyPress}
                   type="search"
+                  ref={ref}
                   placeholder="Search books..."
                   className="w-[200px] lg:w-[300px] pl-8 bg-white/10 border-white/20
                     text-white placeholder:text-white/70 focus-visible:ring-white/30"

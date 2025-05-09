@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Find } from "./Find";
 import { config } from "@/lib/config";
+import { showinfo } from "@/lib/toast";
 
 interface PDFControlProps {
   control: {
@@ -251,7 +252,7 @@ const PDFControl = ({ control }: PDFControlProps) => {
               <WhatsappShareButton
                 url={config.env.prodApiEndpoint + "textbook?url=" + pdfFile}
               >
-                <Button variant="outline" size="icon" title="Share">
+                <Button variant="outline" size="icon" title="WhatsApp Share">
                   {" "}
                   <Share2 className="w-3 cursor-pointer" />
                 </Button>
@@ -260,7 +261,7 @@ const PDFControl = ({ control }: PDFControlProps) => {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => setIsSearchOpen((prev) => !prev)}
+                onClick={() => showinfo("Press 'Ctr+ F' to search")}
                 title="Search"
               >
                 <Search className="h-4 w-4" />

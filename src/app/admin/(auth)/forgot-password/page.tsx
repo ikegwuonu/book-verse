@@ -125,7 +125,10 @@ export default function ForgotPasswordPage() {
               <p className="mt-1 text-sm text-gray-500">
                 If you don't see it, please check your spam folder.
               </p>
-              <Button className="mt-6 bg-navy-800 hover:bg-navy-900">
+              <Button
+                className="mt-6 bg-navy-800 hover:bg-navy-900"
+                onClick={() => setIsSuccess(false)}
+              >
                 Back to Reset Form
               </Button>
             </div>

@@ -35,7 +35,7 @@ export default function ExplorePage() {
                 {uniqueDepartments.map((dpt) => (
                   <Link
                     key={dpt}
-                    href={`/dpt/${dpt}`}
+                    href={`/explore#${dpt}`}
                     className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full text-sm font-medium transition-colors"
                   >
                     {dpt}

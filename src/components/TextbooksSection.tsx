@@ -44,8 +44,8 @@ export function TextbooksSection({ category }: TextbookSectionProps) {
   };
 
   return (
-    <div className="relative">
-      <div className="flex justify-between items-center mb-6">
+    <div className="relative" id="textbook">
+      <div className="flex justify-between items-center mb-6 ">
         <div>
           <h2 className="text-2xl font-bold text-navy-900">Textbooks</h2>
           <p className="text-gray-600">Textbooks from various departments</p>

@@ -55,7 +55,7 @@ export function BookCategorySection({
           <p className="text-gray-600">{dpt}</p>
         </div>
         <Link
-          href={`/category/${dpt}`}
+          href={`/explore#${dpt}`}
           className="text-navy-700 hover:text-navy-900 font-medium text-sm flex items-center"
         >
           View all <ChevronRight className="h-4 w-4 ml-1" />
@@ -95,9 +95,13 @@ export function BookCategorySection({
           onScroll={checkScrollButtons}
         >
           {category.map((book) => (
-            <div key={book.id} className="min-w-[180px] max-w-[180px]">
+            <div
+              key={book.id}
+              className="min-w-[180px] max-w-[180px]"
+              id={book.department}
+            >
               <Link
-                href={`/material/${book.document}`}
+                href={`/material?url=${book.document}`}
                 className="block group/book"
               >
                 <div className="relative h-52 rounded-md overflow-hidden shadow-md transition-transform group-hover/book:scale-105 group-hover/book:shadow-lg">

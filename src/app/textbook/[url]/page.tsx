@@ -7,7 +7,6 @@ import PDFControl from "./PDF-Control";
 import usePdfControl from "@/hooks/use-pdf-control";
 import { useParams } from "next/navigation";
 import { handleApiError } from "@/lib/utils";
-import { Url } from "url";
 
 // Set the workerSrc
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
