@@ -10,6 +10,8 @@ import { handleApiError } from "@/lib/utils";
 import { Url } from "url";
 import PDFControl from "./PDF-Control";
 import { Loader } from "@/providers/app-loader";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
 
 // Set the workerSrc
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
