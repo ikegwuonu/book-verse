@@ -23,7 +23,6 @@ import { pdfjs } from "react-pdf";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Find } from "./Find";
 import { config } from "@/lib/config";
 import { showinfo } from "@/lib/toast";
 
@@ -252,7 +251,7 @@ const PDFControl = ({ control }: PDFControlProps) => {
               <WhatsappShareButton
                 url={config.env.prodApiEndpoint + "textbook?url=" + pdfFile}
               >
-                <Button variant="outline" size="icon" title="WhatsApp Share">
+                <Button variant="outline" size="icon" title="Share">
                   {" "}
                   <Share2 className="w-3 cursor-pointer" />
                 </Button>
@@ -261,7 +260,7 @@ const PDFControl = ({ control }: PDFControlProps) => {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => showinfo("Press 'Ctr+ F' to search")}
+                onClick={() => showinfo("Press 'Ctr+ F'")}
                 title="Search"
               >
                 <Search className="h-4 w-4" />
