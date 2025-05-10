@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { getDocument, GlobalWorkerOptions, version } from "pdfjs-dist";
 import { pdfjs } from "react-pdf";
+import { handleApiError } from "@/lib/utils";
 
 // Use UMD build for better Next.js compatibility
 GlobalWorkerOptions.workerSrc = new URL(
@@ -57,7 +58,7 @@ export default function PDFViewer({ url }: Props) {
         await renderTask.current.promise;
       } catch (error) {
         if (error instanceof Error && error.name !== "AbortError") {
-          console.error("PDF error:", error);
+          handleApiError(error);
         }
       }
     };
