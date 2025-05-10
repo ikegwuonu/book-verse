@@ -1,17 +1,21 @@
 "use client";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useMemo } from "react";
-import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import "react-pdf/dist/esm/Page/TextLayer.css";
-
 import usePdfControl from "@/hooks/use-pdf-control";
 import { useParams, useSearchParams } from "next/navigation";
 import { handleApiError } from "@/lib/utils";
 import { Url } from "url";
 import PDFControl from "./PDF-Control";
 import { Loader } from "@/providers/app-loader";
-import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import "react-pdf/dist/esm/Page/TextLayer.css";
+
+const PDF_OPTIONS = {
+  cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
+  cMapPacked: true,
+  standardFontDataUrl: "", // Disable standard fonts if not needed
+  disableFontFace: true, // Helps with mobile rendering
+  useSystemFonts: false, // Force embedded fonts
+};
+
 import PDFErrorBoundary from "@/components/pdf-error-boundary";
 
 // Set the workerSrc
@@ -68,13 +72,7 @@ export default function PDFViewer() {
       </div>
     );
   }
-  const PDF_OPTIONS = {
-    cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
-    cMapPacked: true,
-    standardFontDataUrl: "", // Disable standard fonts if not needed
-    disableFontFace: true, // Helps with mobile rendering
-    useSystemFonts: false, // Force embedded fonts
-  };
+
   return (
     <PDFErrorBoundary>
       <div className="flex flex-col items-center w-full space-y-4 relative">

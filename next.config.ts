@@ -9,10 +9,7 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
-  experimental: {
-    esmExternals: "loose",
-    serverComponentsExternalPackages: ["pdfjs-dist"],
-  },
+
   images: {
     remotePatterns: [
       {
