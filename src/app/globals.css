@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* "pdfjs-dist": "^4.8.69", */
 
 @layer base {
   :root {

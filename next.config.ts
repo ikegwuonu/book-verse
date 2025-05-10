@@ -2,11 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "pdfjs-dist": "pdfjs-dist/legacy/build/pdf",
-      "react-pdf": "react-pdf/dist/esm/entry.webpack5",
-    };
+    config.module.rules.push({
+      test: /pdf\.worker\.entry\.js$/,
+      type: "asset/resource",
+      generator: {
+        filename: "static/worker/[hash].worker.js",
+      },
+    });
     return config;
   },
 
