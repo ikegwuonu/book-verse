@@ -43,7 +43,7 @@ export default function Header() {
   };
   return (
     <header
-      className={`sticky top-0 w-full z-10 transition-colors duration-300 ${
+      className={`sticky top-0 w-full z-20 transition-colors duration-300 ${
         scrolled
           ? "bg-navy-900 shadow-md"
           : "bg-gradient-to-r from-navy-900 via navy-900 via-slate-800 to-slate-900"
