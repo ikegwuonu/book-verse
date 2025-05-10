@@ -57,7 +57,7 @@ export default function PDFViewer() {
   };
   const file = useMemo(
     () => ({
-      url: decodeURIComponent(url as string),
+      url: decodeURIComponent(url as string) || " ",
     }),
     [url]
   );
@@ -68,6 +68,13 @@ export default function PDFViewer() {
       </div>
     );
   }
+  const PDF_OPTIONS = {
+    cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
+    cMapPacked: true,
+    standardFontDataUrl: "", // Disable standard fonts if not needed
+    disableFontFace: true, // Helps with mobile rendering
+    useSystemFonts: false, // Force embedded fonts
+  };
   return (
     <PDFErrorBoundary>
       <div className="flex flex-col items-center w-full space-y-4 relative">
@@ -82,6 +89,7 @@ export default function PDFViewer() {
           onLoadError={onDocumentLoadError}
           loading={<Loader />}
           renderMode="canvas"
+          options={PDF_OPTIONS}
         >
           {Array.from(new Array(numPages), (_, index) => (
             <Page
@@ -89,7 +97,7 @@ export default function PDFViewer() {
               key={`page_${index + 1}`}
               pageNumber={index + 1}
               scale={scale}
-              width={window.innerWidth * 0.95} // Mobile-responsive width
+              width={230} // Mobile-responsive width
               renderTextLayer={false} // Disable text layer
               renderAnnotationLayer={false} // Disable annotations
             />
