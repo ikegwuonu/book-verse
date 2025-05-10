@@ -103,6 +103,15 @@
 
     --chart-5: 340 75% 55%;
   }
+  .react-pdf__Page {
+    touch-action: pan-y;
+    overflow: hidden;
+  }
+
+  .react-pdf__Page__canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
 }
 
 @layer base {

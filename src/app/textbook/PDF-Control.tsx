@@ -251,10 +251,10 @@ const PDFControl = ({ control }: PDFControlProps) => {
               <WhatsappShareButton
                 url={config.env.prodApiEndpoint + "textbook?url=" + pdfFile}
               >
-                <Button variant="outline" size="icon" title="Share">
+                <p className="p-1 px-1 border shadow-sm" title="Share">
                   {" "}
                   <Share2 className="w-3 cursor-pointer" />
-                </Button>
+                </p>
               </WhatsappShareButton>
 
               <Button

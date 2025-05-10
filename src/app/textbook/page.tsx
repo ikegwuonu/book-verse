@@ -12,6 +12,7 @@ import PDFControl from "./PDF-Control";
 import { Loader } from "@/providers/app-loader";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+import PDFErrorBoundary from "@/components/pdf-error-boundary";
 
 // Set the workerSrc
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
@@ -68,29 +69,33 @@ export default function PDFViewer() {
     );
   }
   return (
-    <div className="flex flex-col items-center w-full space-y-4 relative">
-      <PDFControl control={control} />
-      {/* Controls */}
+    <PDFErrorBoundary>
+      <div className="flex flex-col items-center w-full space-y-4 relative">
+        <PDFControl control={control} />
+        {/* Controls */}
 
-      {/* PDF Viewer */}
-      <Document
-        file={file.url}
-        className={"bg-white shadow-lg border"}
-        onLoadSuccess={onDocumentLoadSuccess}
-        onLoadError={onDocumentLoadError}
-        loading={<Loader />}
-      >
-        {Array.from(new Array(numPages), (_, index) => (
-          <Page
-            className={"shadow border"}
-            key={`page_${index + 1}`}
-            pageNumber={index + 1}
-            scale={scale}
-            renderTextLayer={true}
-            renderAnnotationLayer={true}
-          />
-        ))}
-      </Document>
-    </div>
+        {/* PDF Viewer */}
+        <Document
+          file={file.url}
+          className={"bg-white shadow-lg border"}
+          onLoadSuccess={onDocumentLoadSuccess}
+          onLoadError={onDocumentLoadError}
+          loading={<Loader />}
+          renderMode="canvas"
+        >
+          {Array.from(new Array(numPages), (_, index) => (
+            <Page
+              className={"shadow border"}
+              key={`page_${index + 1}`}
+              pageNumber={index + 1}
+              scale={scale}
+              width={window.innerWidth * 0.95} // Mobile-responsive width
+              renderTextLayer={false} // Disable text layer
+              renderAnnotationLayer={false} // Disable annotations
+            />
+          ))}
+        </Document>
+      </div>
+    </PDFErrorBoundary>
   );
 }
