@@ -81,7 +81,9 @@ export default function PDFViewer() {
 
         {/* PDF Viewer */}
         <Document
-          file={file.url}
+          file={
+            "https://ik.imagekit.io/ikegwuonu/JUNIOR_FRONTEND_DEVELOPER___TECHNICAL_ASSESSMENT__1__ZLnbcum6l.pdf"
+          }
           className={"bg-white shadow-lg border"}
           onLoadSuccess={onDocumentLoadSuccess}
           onLoadError={onDocumentLoadError}

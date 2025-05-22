@@ -101,7 +101,7 @@ export function BookCategorySection({
               id={book.department}
             >
               <Link
-                href={`/material?url=${book.document}`}
+                href={`/material?url=${book.cover}`}
                 className="block group/book"
               >
                 <div className="relative h-52 rounded-md overflow-hidden shadow-md transition-transform group-hover/book:scale-105 group-hover/book:shadow-lg">

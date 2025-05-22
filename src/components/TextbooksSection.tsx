@@ -51,7 +51,7 @@ export function TextbooksSection({ category }: TextbookSectionProps) {
           <p className="text-gray-600">Textbooks from various departments</p>
         </div>
         <Link
-          href={`/category}`}
+          href={`/category`}
           className="text-navy-700 hover:text-navy-900 font-medium text-sm flex items-center"
         >
           View all <ChevronRight className="h-4 w-4 ml-1" />
@@ -93,7 +93,7 @@ export function TextbooksSection({ category }: TextbookSectionProps) {
           {category.map((book) => (
             <div key={book.id} className="min-w-[180px] max-w-[180px]">
               <Link
-                href={`/textbook?url=${book.document}`}
+                href={`/textbook?url=${book.id}`}
                 className="block group/book"
               >
                 <div className="relative h-52 rounded-md overflow-hidden shadow-md transition-transform group-hover/book:scale-105 group-hover/book:shadow-lg">
