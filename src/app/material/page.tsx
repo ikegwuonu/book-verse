@@ -171,6 +171,13 @@ export default function Page() {
             />
           </div>
         </CardContent>
+        <iframe
+          className="h-80 w-full border-0"
+          id="pdfFrame"
+          title="Exam PDF"
+          loading="eager"
+          src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${pdfUrl}`}
+        ></iframe>
       </Card>
 
       <div className="text-sm text-muted-foreground text-center">
