@@ -1,4 +1,4 @@
-import { addAdmin, logIn } from "@/api/auth";
+import { addAdmin, logIn, updateAdminPassword } from "@/api/auth";
 import { addAdminSchemaType, loginSchemaType } from "@/lib/form-validation";
 import { showsuccess } from "@/lib/toast";
 import { useMutation } from "@tanstack/react-query";
@@ -16,6 +16,15 @@ export const useLogin = () => {
     mutationFn: (data: loginSchemaType) => logIn(data),
     onSuccess: () => {
       showsuccess("Login successful");
+    },
+  });
+};
+export const useUpdatePassword = () => {
+  return useMutation({
+    mutationFn: (data: { currentPassword: string; newPassword: string }) =>
+      updateAdminPassword(data.newPassword),
+    onSuccess: () => {
+      showsuccess("Password updated");
     },
   });
 };

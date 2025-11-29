@@ -2,15 +2,17 @@
 import { useGetMaterial } from "@/api/react-query/material";
 import { useGetTextBooks } from "@/api/react-query/textbook";
 import { BookCategorySection } from "@/components/CategorySection";
+import DataLoading from "@/components/DataLoading";
 import { Footer } from "@/components/Footer";
 import { TextbooksSection } from "@/components/TextbooksSection";
 import { department } from "@/lib/constant";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Loader } from "lucide-react";
 import Link from "next/link";
 
 export default function ExplorePage() {
   const { data: materialsData, isPending } = useGetMaterial();
-  const { data: textbookData } = useGetTextBooks();
+  const { data: textbookData, isPending: isTextbookLoading } =
+    useGetTextBooks();
   const textbooks = textbookData || [];
   const materials = materialsData || [];
   const uniqueDepartments = Array.from(
@@ -50,21 +52,29 @@ export default function ExplorePage() {
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="space-y-16">
-              {uniqueDepartments.map((dpt, index) => {
-                const materialsByDpt = materials.filter(
-                  (item, i) => item.department === dpt
-                );
-                return (
-                  <BookCategorySection
-                    key={index}
-                    category={materialsByDpt}
-                    dpt={dpt}
-                  />
-                );
-              })}
+              {isPending ? (
+                <DataLoading />
+              ) : (
+                uniqueDepartments.map((dpt, index) => {
+                  const materialsByDpt = materials.filter(
+                    (item, i) => item.department === dpt
+                  );
+                  return (
+                    <BookCategorySection
+                      key={index}
+                      category={materialsByDpt}
+                      dpt={dpt}
+                    />
+                  );
+                })
+              )}
             </div>
             <div className="space-y-16">
-              <TextbooksSection category={textbooks} />
+              {isTextbookLoading ? (
+                <DataLoading />
+              ) : (
+                <TextbooksSection category={textbooks} />
+              )}
             </div>
           </div>
         </section>

@@ -118,6 +118,20 @@ export default function AddAdminPage() {
                 This email will be used for login and notifications
               </p>
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">
+                Phone number <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="phone"
+                type="text"
+                {...register("phone")}
+                error={errors.phone?.message}
+              />
+              <p className="text-sm text-muted-foreground">
+                This phone number will be used for WhatsApp
+              </p>
+            </div>
 
             <div className="space-y-3">
               <Label>

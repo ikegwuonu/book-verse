@@ -32,7 +32,8 @@ export default function AddTextbookPage() {
   const [activeTab, setActiveTab] =
     useState<(typeof tabValue)[number]>("basic");
   const { isPending, mutate: addTextbokFn } = useAddTextbook();
-  const { email } = useAdminProfileStore().adminStore;
+  const user = useAdminProfileStore().adminStore;
+  const email = user?.email || "";
   const addTextbokForm = useForm({
     resolver: zodResolver(addTextbookSchema),
   });

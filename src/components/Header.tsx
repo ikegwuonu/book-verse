@@ -3,9 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useScreenSize from "@/hooks/use-screen-size";
-import { routes } from "@/lib/routes";
+import { adminRoutes, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { useAdminFirebaseStore } from "@/zustand/adminFirebase";
+import { useAdminProfileStore } from "@/zustand/adminProfile";
 import { Slot } from "@radix-ui/react-slot";
 import { Menu, Search } from "lucide-react";
 import Link from "next/link";
@@ -18,6 +19,7 @@ export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
   const { width } = useScreenSize();
   const { adminFirebaseStore } = useAdminFirebaseStore();
+  const { adminStore } = useAdminProfileStore();
   const ref = useRef<null | HTMLInputElement>(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -107,7 +109,11 @@ export default function Header() {
                 variant="outline"
                 className="border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
               >
-                <Link href={routes.login}>Sign In</Link>
+                {adminStore ? (
+                  <Link href={adminRoutes.admin}>Dashboard</Link>
+                ) : (
+                  <Link href={routes.login}>Sign In</Link>
+                )}
               </Button>
             </div>
           </div>

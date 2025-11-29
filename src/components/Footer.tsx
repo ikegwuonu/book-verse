@@ -18,12 +18,14 @@ export function Footer() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(subscribeNewsletterSchema),
   });
   const onSubmit = async (data: subscribeNewsletterSchemaType) => {
     await subscribeFn(data);
+    reset();
   };
   return (
     <footer className="bg-navy-900 text-white">

@@ -3,6 +3,7 @@ import { z } from "zod";
 export const addAdminSchema = z.object({
   first_name: z.string().min(1, { message: "First Name is required" }),
   last_name: z.string().min(1, { message: "Last Name is required" }),
+  phone: z.string().min(1, { message: "Phone is required" }),
   email: z.string().email({ message: "Invalid email address" }),
   //   password: z
   //     .string()
@@ -21,7 +22,29 @@ export const addAdminSchema = z.object({
     }),
 });
 export type addAdminSchemaType = z.infer<typeof addAdminSchema>;
+export const updateProfileAdminSchema = z.object({
+  first_name: z.string().min(1, { message: "First Name is required" }),
+  last_name: z.string().min(1, { message: "Last Name is required" }),
+  phone: z.string().min(1, { message: "Phone is required" }),
 
+  role: z.string().min(1, { message: "Role is required" }),
+  notes: z.string().optional(),
+
+  image: z
+    .any()
+
+    .refine((file) => file?.size <= 10 * 1024 * 1024, {
+      message: "File must be less than 10MB",
+    }),
+});
+export type updateProfileAdminSchemaType = z.infer<
+  typeof updateProfileAdminSchema
+>;
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, { message: "Password is required" }),
+  newPassword: z.string().min(1, { message: "New Password is required" }),
+});
+export type changePasswordSchemaType = z.infer<typeof changePasswordSchema>;
 export const addTextbookSchema = z.object({
   author: z.string().min(1, { message: "Author is required" }),
   document: z.any().refine((file) => file?.size <= 20 * 1024 * 1024, {

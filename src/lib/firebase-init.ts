@@ -16,7 +16,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, updatePassword } from "firebase/auth";
 
 // Firebase config
 const firebaseConfig = {
@@ -53,4 +53,5 @@ export {
   getDocs,
   deleteDoc,
   updateDoc,
+  updatePassword,
 };

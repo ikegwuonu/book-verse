@@ -20,6 +20,7 @@ export interface IAdminInfo {
   last_name: string;
   notes: string;
   role: string;
+  uid: string;
 }
 export interface IGetTextBook {
   academic_level: string;

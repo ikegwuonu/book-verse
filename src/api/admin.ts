@@ -19,8 +19,8 @@ export const getAdmin = async (): Promise<IGetAdmin[]> => {
     ...(doc.data() as IGetAdmin),
   }));
 };
-export const updateAdmin = async (data: IUpdateAdmin) => {
-  const adminRef = doc(db, "admin", data.email);
+export const updateAdmin = async (data: IUpdateAdmin, uid: string) => {
+  const adminRef = doc(db, "admin", uid);
   if (!adminRef.id) throw new Error("Admin not found");
   try {
     await updateDoc(adminRef, {

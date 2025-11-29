@@ -1,4 +1,11 @@
-import { auth, db } from "@/lib/firebase-init";
+import {
+  auth,
+  db,
+  doc,
+  getDoc,
+  setDoc,
+  updatePassword,
+} from "@/lib/firebase-init";
 import { addAdminSchemaType, loginSchemaType } from "@/lib/form-validation";
 import { showsuccess } from "@/lib/toast";
 import { IAdminInfo } from "@/lib/types";
@@ -8,9 +15,24 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { uploadFile } from "./imagekit";
 import { FirebaseError } from "firebase/app";
+import { adminRoutes, routes } from "@/lib/routes";
+
+export const updateAdminPassword = async (newPassword: string) => {
+  const user = auth.currentUser;
+  if (!user) {
+    handleApiError("No authenticated user found");
+    window.location.href = routes.login;
+    return;
+  }
+
+  try {
+    await updatePassword(user, newPassword); // newPassword is a string from form
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const addAdmin = async (data: addAdminSchemaType) => {
   const emailRef = doc(db, "admin", data.email);
@@ -50,15 +72,17 @@ export const logIn = async (data: loginSchemaType): Promise<IAdminInfo> => {
     );
 
     if (!userCredential.user) throw new Error("Unauthorized");
+    const uid = userCredential.user.uid; // ✅ use UID, not email
+    const adminRef = doc(db, "admin", uid);
 
-    const emailRef = doc(db, "admin", data.email);
-    const emailDoc = await getDoc(emailRef);
+    const emailDoc = await getDoc(adminRef);
 
     if (!emailDoc.exists()) {
       throw new Error("Admin record not found");
     }
 
-    const userInfo = emailDoc.data() as IAdminInfo;
+    const userInfo = { ...emailDoc.data(), uid: uid } as IAdminInfo;
+    console.log(userInfo);
     return userInfo;
   } catch (error) {
     if (error instanceof FirebaseError) {

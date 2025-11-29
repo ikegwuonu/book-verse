@@ -11,10 +11,11 @@ export const useGetAdmin = () => {
     queryFn: () => getAdmin(),
   });
 };
-export const useUpdateAdmin = () => {
+export const useUpdateAdminProfile = () => {
   const queryClient = new QueryClient();
   return useMutation({
-    mutationFn: (data: IUpdateAdmin) => updateAdmin(data),
+    mutationFn: ({ data, uid }: { data: IUpdateAdmin; uid: string }) =>
+      updateAdmin(data, uid),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKeys.getAdmin] });
       showsuccess("Admin updated");
