@@ -1,5 +1,6 @@
 "use client";
 
+import { useDeleteAdmin } from "@/api/react-query/admin";
 import { Button } from "@/components/ui/button";
 import { IGetAdmin } from "@/lib/types";
 import { useModal } from "@/zustand/modalStore";
@@ -16,9 +17,13 @@ export default function ConfirmDeleteModal({
   title = "Delete Admin",
   description = "Are you sure you want to delete this admin? This action cannot be undone.",
 }: Props) {
+  const { isPending, mutateAsync } = useDeleteAdmin();
   const { closeModal } = useModal();
 
-  const deleteAdmin = () => {};
+  const deleteAdmin = async () => {
+    await mutateAsync(admin.email);
+    closeModal();
+  };
 
   return (
     <div className="bg-white rounded-2xl p-6 max-w-sm w-full animate-in fade-in-0 slide-in-from-bottom-10 shadow-xl">
@@ -29,11 +34,11 @@ export default function ConfirmDeleteModal({
       <p className="text-sm text-gray-600">{description}</p>
 
       <div className="mt-6 flex justify-end gap-3">
-        <Button variant="outline" onClick={closeModal}>
+        <Button variant="outline" type="button" onClick={closeModal}>
           Cancel
         </Button>
-        <Button variant="destructive" onClick={deleteAdmin}>
-          Delete
+        <Button variant="destructive" type="submit" onClick={deleteAdmin}>
+          {isPending ? "Deleting..." : " Delete"}
         </Button>
       </div>
     </div>

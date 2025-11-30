@@ -1,109 +1,48 @@
 "use client";
-import { Document, Page, pdfjs } from "react-pdf";
-import { useMemo } from "react";
-import usePdfControl from "@/hooks/use-pdf-control";
-import { useParams, useSearchParams } from "next/navigation";
+
+import { useGetTextbookById } from "@/api/react-query/textbook";
+import DataLoading from "@/components/DataLoading";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
 import { handleApiError } from "@/lib/utils";
-import { Url } from "url";
-import PDFControl from "./PDF-Control";
-import { Loader } from "@/providers/app-loader";
+import { useSearchParams } from "next/navigation";
 
-const PDF_OPTIONS = {
-  cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
-  cMapPacked: true,
-  standardFontDataUrl: "", // Disable standard fonts if not needed
-  disableFontFace: true, // Helps with mobile rendering
-  useSystemFonts: false, // Force embedded fonts
-};
-
-import PDFErrorBoundary from "@/components/pdf-error-boundary";
-
-// Set the workerSrc
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
-).toString();
-export default function PDFViewer() {
-  const url = useSearchParams().get("url");
-  const control = usePdfControl();
-  const {
-    setPageNumber,
-    setNumPages,
-    scale,
-    pageNumber,
-    numPages,
-    setPdfDoc,
-    pdfDoc,
-    setPdfFile,
-    currentMatchIndex,
-    matches,
-  } = control;
-
-  const onDocumentLoadSuccess = (doc: pdfjs.PDFDocumentProxy) => {
-    setPdfDoc(doc);
-    setNumPages(doc.numPages);
-    setPageNumber(1);
-
-    url && setPdfFile(decodeURIComponent(url));
+export default function Page() {
+  const id = useSearchParams().get("id") || "";
+  const { isPending, data } = useGetTextbookById(id);
+  const handleError = (
+    event: React.SyntheticEvent<HTMLIFrameElement, Event>
+  ) => {
+    handleApiError("Failed to load PDF document.");
   };
-
-  const onDocumentLoadError = (err: Error) => {
-    handleApiError(err.message);
-  };
-
-  const nextPage = () => {
-    if (pageNumber < (numPages || 1)) setPageNumber(pageNumber + 1);
-  };
-
-  const prevPage = () => {
-    if (pageNumber > 1) setPageNumber(pageNumber - 1);
-  };
-  const file = useMemo(
-    () => ({
-      url: decodeURIComponent(url as string) || " ",
-    }),
-    [url]
-  );
-  if (typeof url !== "string" || url.trim() === "") {
-    return (
-      <div className="flex items-center justify-center h-full text-red-500">
-        Invalid PDF URL
-      </div>
-    );
+  if (isPending) {
+    return <DataLoading />;
   }
-
   return (
-    <PDFErrorBoundary>
-      <div className="flex flex-col items-center w-full space-y-4 relative">
-        <PDFControl control={control} />
-        {/* Controls */}
+    <div className="flex flex-col w-full max-w-5xl mx-auto p-4 space-y-4">
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl flex justify-between items-center">
+            <span>PDF Document Viewer</span>
+          </CardTitle>
+        </CardHeader>
 
-        {/* PDF Viewer */}
-        <Document
-          file={
-            "https://ik.imagekit.io/ikegwuonu/JUNIOR_FRONTEND_DEVELOPER___TECHNICAL_ASSESSMENT__1__ZLnbcum6l.pdf"
-          }
-          className={"bg-white shadow-lg border"}
-          onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={onDocumentLoadError}
-          loading={<Loader />}
-          renderMode="canvas"
-          options={PDF_OPTIONS}
-        >
-          {Array.from(new Array(numPages), (_, index) => (
-            <Page
-              className={"shadow border"}
-              key={`page_${index + 1}`}
-              pageNumber={index + 1}
-              scale={scale}
-              width={230} // Mobile-responsive width
-              renderTextLayer={false} // Disable text layer
-              renderAnnotationLayer={false} // Disable annotations
-            />
-          ))}
-        </Document>
+        <iframe
+          className="h-80 w-full border-0"
+          id="pdfFrame"
+          title="PDF"
+          onError={handleError}
+          loading="eager"
+          src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${data?.document}`}
+        ></iframe>
+      </Card>
+
+      <div className="text-sm text-muted-foreground text-center">
+        <p>
+          Note: Some PDF features depend on the browser's built-in PDF viewer
+          capabilities.
+        </p>
       </div>
-    </PDFErrorBoundary>
+    </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useIsAuth } from "@/hooks/use-is-auth";
 import useScreenSize from "@/hooks/use-screen-size";
 import { adminRoutes, routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Header() {
   const router = useRouter();
+  const isAuth = useIsAuth();
   const [scrolled, setScrolled] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const { width } = useScreenSize();
@@ -109,7 +111,7 @@ export default function Header() {
                 variant="outline"
                 className="border-white/20 text-white bg-white/10 hover:text-white hover:bg-navy-700"
               >
-                {adminStore ? (
+                {adminStore && isAuth ? (
                   <Link href={adminRoutes.admin}>Dashboard</Link>
                 ) : (
                   <Link href={routes.login}>Sign In</Link>

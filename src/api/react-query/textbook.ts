@@ -3,6 +3,7 @@ import {
   addTextBook,
   deleteTextbook,
   getAllTextbooks,
+  getTextbookById,
   updateTextbook,
 } from "../textbook";
 import { addTextbookSchemaType } from "@/lib/form-validation";
@@ -21,6 +22,12 @@ export const useGetTextBooks = () => {
   return useQuery({
     queryKey: [queryKeys.getTextBooks],
     queryFn: () => getAllTextbooks(),
+  });
+};
+export const useGetTextbookById = (id: string) => {
+  return useQuery({
+    queryKey: [queryKeys.getTextBooks, id],
+    queryFn: () => getTextbookById(id),
   });
 };
 export const useDeleteTextbook = () => {

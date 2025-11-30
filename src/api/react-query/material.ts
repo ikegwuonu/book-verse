@@ -4,6 +4,7 @@ import {
   addMaterial,
   deleteMaterial,
   getAllMaterials,
+  getMaterialById,
   updateMaterial,
 } from "../material";
 import { showsuccess } from "@/lib/toast";
@@ -21,6 +22,12 @@ export const useGetMaterial = () => {
   return useQuery({
     queryKey: [queryKeys.getTextBooks],
     queryFn: () => getAllMaterials(),
+  });
+};
+export const useGetMaterialById = (id: string) => {
+  return useQuery({
+    queryKey: [queryKeys.getTextBooks, id],
+    queryFn: () => getMaterialById(id),
   });
 };
 export const useDeleteMaterial = () => {

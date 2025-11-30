@@ -14,6 +14,8 @@ import { Download, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ConfirmDeleteModal from "./DeleteAdminModal";
+import { Slot } from "@radix-ui/react-slot";
+import EditAdminModal from "./EditAdminModal";
 
 const roleBadgeColors: Record<string, string> = {
   "super-admin": "bg-red-100 text-red-800 hover:bg-red-200",
@@ -84,14 +86,13 @@ export const column = ({ openModal }: ColumnProps): Column<IGetAdmin>[] => [
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
-            <Link
-              href={`/admin/users/edit/${admin.email}`}
-              className="flex items-center cursor-pointer"
-            >
+          <DropdownMenuItem
+            onClick={() => openModal("edit", <EditAdminModal admin={admin} />)}
+          >
+            <Slot className="flex items-center cursor-pointer">
               <Edit className="h-4 w-4 mr-2" />
               Edit
-            </Link>
+            </Slot>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>

@@ -18,6 +18,7 @@ import { useGetMaterial } from "@/api/react-query/material";
 import { useGetTextBooks } from "@/api/react-query/textbook";
 import { showinfo } from "@/lib/toast";
 import SearchTextbookCard from "@/components/TextbookCard";
+import DataLoading from "@/components/DataLoading";
 
 // Mock data for books
 const mockBooks = [
@@ -78,8 +79,6 @@ const mockBooks = [
 ];
 
 export default function BookSearch() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [genre, setGenre] = useState("all");
   const [view, setView] = useState<"grid" | "list">("grid");
   const search = useSearchParams().get("search") || "";
   const { data, isPending } = useGetMaterial();
@@ -108,7 +107,12 @@ export default function BookSearch() {
   //       genre === "all" || book.genre.toLowerCase() === genre.toLowerCase();
   //     return matchesSearch && matchesGenre;
   //   });
-
+  if (isPending || textbookPending) {
+    <div className="min-h-full w-full">
+      {" "}
+      <DataLoading />
+    </div>;
+  }
   return (
     <div className="bg-slate-50 min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-5xl">

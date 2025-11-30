@@ -79,3 +79,17 @@ export const updateTextbook = async (id: string, data: IUpdateTextbook) => {
     throw new Error("Update error");
   }
 };
+export async function getTextbookById(bookId: string) {
+  try {
+    const docRef = doc(db, "textbook", bookId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+
+      return docSnap.data() as IGetTextBook;
+    }
+  } catch (error) {
+    throw error;
+  }
+}

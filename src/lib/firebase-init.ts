@@ -15,6 +15,7 @@ import {
   startAfter,
   getDocs,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { getAuth, updatePassword } from "firebase/auth";
 
@@ -54,4 +55,5 @@ export {
   deleteDoc,
   updateDoc,
   updatePassword,
+  where,
 };

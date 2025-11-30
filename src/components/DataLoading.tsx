@@ -4,7 +4,7 @@ import React from "react";
 const DataLoading = () => {
   return (
     <div className="w-full flex items-center justify-center min-h-40">
-      <Loader />
+      <Loader className="animate-spin text-navy-700" />
     </div>
   );
 };

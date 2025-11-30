@@ -6,6 +6,8 @@ import {
   orderBy,
   doc,
   updateDoc,
+  deleteDoc,
+  where,
 } from "@/lib/firebase-init";
 import { IGetAdmin, IUpdateAdmin } from "@/lib/types";
 
@@ -29,5 +31,19 @@ export const updateAdmin = async (data: IUpdateAdmin, uid: string) => {
     console.log("Admin updated successfully");
   } catch (error) {
     throw new Error("Update error");
+  }
+};
+export const deleteAdmin = async (email: string) => {
+  try {
+    const querySnapshot = await getDocs(
+      query(collection(db, "admin"), where("email", "==", email))
+    );
+    if (querySnapshot) {
+      querySnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+    }
+  } catch (error) {
+    throw error;
   }
 };

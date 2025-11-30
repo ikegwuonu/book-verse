@@ -6,6 +6,7 @@ import {
   db,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -68,3 +69,17 @@ export const updateMaterial = async (
     throw new Error("Update error");
   }
 };
+export async function getMaterialById(bookId: string) {
+  try {
+    const docRef = doc(db, "material", bookId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+
+      return docSnap.data() as IGetMaterial;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
