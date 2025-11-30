@@ -151,7 +151,7 @@ export function AdminSidebar() {
                   </div>
                 )}
               </div>
-              {adminStore?.role === "user-manager" ? null : (
+              {adminStore?.role === "user-manager" ? (
                 <>
                   {/* User Management Section */}
                   <div>
@@ -230,7 +230,7 @@ export function AdminSidebar() {
                     <span>Settings</span>
                   </Link>
                 </>
-              )}
+              ) : null}
             </nav>
           </div>
 

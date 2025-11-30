@@ -19,7 +19,7 @@ export interface IAdminInfo {
   image: string;
   last_name: string;
   notes: string;
-  role: string;
+  role: "super-admin" | "content-manager" | "user-manager" | "analytics-viewer";
   uid: string;
 }
 export interface IGetTextBook {
