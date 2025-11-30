@@ -40,7 +40,7 @@ export default function BookCard({ book, view, type }: BookCardProps) {
   );
   return (
     <Link
-      href={`material?url=${book.document}`}
+      href={`/material?id=${book.document}`}
       className={cn(
         "bg-gray-100 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-[1.02] border",
         view === "list" && "flex"
