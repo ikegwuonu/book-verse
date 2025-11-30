@@ -159,7 +159,6 @@ const EditAdminModal = ({ admin }: Props) => {
             <Label htmlFor="bio">Bio</Label>
             <Textarea
               id="bio"
-              disabled
               placeholder="Write a short bio about yourself..."
               className="min-h-[100px]"
               defaultValue={admin?.notes}
@@ -178,6 +177,9 @@ const EditAdminModal = ({ admin }: Props) => {
           </div>
 
           <div className="flex justify-end">
+            <Button variant="outline" type="button" onClick={closeModal}>
+              Cancel
+            </Button>
             <Button type="submit" disabled={isPending}>
               {isPending ? "Saving" : "Save Changes"}
             </Button>

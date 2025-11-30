@@ -31,13 +31,10 @@ export function AdminSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [contentExpanded, setContentExpanded] = useState(true);
   const [usersExpanded, setUsersExpanded] = useState(true);
-  const {
-    logOutAdminStore,
-    adminStore: { first_name, last_name, role },
-  } = useAdminProfileStore();
+  const { logOutAdminStore, adminStore } = useAdminProfileStore();
+  const { first_name = "", last_name = "", role = "" } = adminStore || {};
   const { logOutAdminFirebaseStore: logOutFB, adminFirebaseStore } =
     useAdminFirebaseStore();
-  const { adminStore } = useAdminProfileStore();
 
   const { width } = useScreenSize();
   const isMobile = width < 768;
@@ -154,33 +151,34 @@ export function AdminSidebar() {
                   </div>
                 )}
               </div>
+              {adminStore?.role === "user-manager" ? null : (
+                <>
+                  {/* User Management Section */}
+                  <div>
+                    <button
+                      onClick={() => setUsersExpanded(!usersExpanded)}
+                      className={cn(
+                        "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium",
+                        pathname.startsWith("/admin/users")
+                          ? "bg-navy-50 text-navy-900"
+                          : "text-gray-700 hover:bg-gray-100"
+                      )}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <Users className="h-4 w-4" />
+                        <span>Team</span>
+                      </div>
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          usersExpanded ? "rotate-180" : ""
+                        )}
+                      />
+                    </button>
 
-              {/* User Management Section */}
-              <div>
-                <button
-                  onClick={() => setUsersExpanded(!usersExpanded)}
-                  className={cn(
-                    "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium",
-                    pathname.startsWith("/admin/users")
-                      ? "bg-navy-50 text-navy-900"
-                      : "text-gray-700 hover:bg-gray-100"
-                  )}
-                >
-                  <div className="flex items-center space-x-2">
-                    <Users className="h-4 w-4" />
-                    <span>Team</span>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      "h-4 w-4 transition-transform",
-                      usersExpanded ? "rotate-180" : ""
-                    )}
-                  />
-                </button>
-
-                {usersExpanded && (
-                  <div className="pl-9 space-y-1 mt-1">
-                    {/* <Link
+                    {usersExpanded && (
+                      <div className="pl-9 space-y-1 mt-1">
+                        {/* <Link
                       href="/admin/users"
                       className={cn(
                         "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
@@ -191,46 +189,48 @@ export function AdminSidebar() {
                     >
                       <span> Users</span>
                     </Link> */}
-                    <Link
-                      href={adminRoutes.admin}
-                      className={cn(
-                        "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
-                        pathname === "/admin/users/add"
-                          ? "text-navy-900 font-medium"
-                          : "text-gray-600 hover:text-gray-900"
-                      )}
-                    >
-                      <span> Admin</span>
-                    </Link>
+                        <Link
+                          href={adminRoutes.admin}
+                          className={cn(
+                            "flex items-center space-x-2 px-3 py-2 rounded-md text-sm",
+                            pathname === "/admin/users/add"
+                              ? "text-navy-900 font-medium"
+                              : "text-gray-600 hover:text-gray-900"
+                          )}
+                        >
+                          <span> Admin</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              <Link
-                href={adminRoutes.analytics}
-                className={cn(
-                  "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
-                  pathname === "/admin/analytics"
-                    ? "bg-navy-50 text-navy-900"
-                    : "text-gray-700 hover:bg-gray-100"
-                )}
-              >
-                <BarChart3 className="h-4 w-4" />
-                <span>Analytics</span>
-              </Link>
+                  <Link
+                    href={adminRoutes.analytics}
+                    className={cn(
+                      "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
+                      pathname === "/admin/analytics"
+                        ? "bg-navy-50 text-navy-900"
+                        : "text-gray-700 hover:bg-gray-100"
+                    )}
+                  >
+                    <BarChart3 className="h-4 w-4" />
+                    <span>Analytics</span>
+                  </Link>
 
-              <Link
-                href={adminRoutes.settings}
-                className={cn(
-                  "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
-                  pathname === "/admin/settings"
-                    ? "bg-navy-50 text-navy-900"
-                    : "text-gray-700 hover:bg-gray-100"
-                )}
-              >
-                <Settings className="h-4 w-4" />
-                <span>Settings</span>
-              </Link>
+                  <Link
+                    href={adminRoutes.settings}
+                    className={cn(
+                      "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium",
+                      pathname === "/admin/settings"
+                        ? "bg-navy-50 text-navy-900"
+                        : "text-gray-700 hover:bg-gray-100"
+                    )}
+                  >
+                    <Settings className="h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
 
