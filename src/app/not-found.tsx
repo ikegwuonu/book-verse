@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
 import { BookX, Home, Search } from "lucide-react";
-import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 export default function NotFound() {

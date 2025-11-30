@@ -87,12 +87,11 @@ export const column = ({ openModal }: ColumnProps): Column<IGetAdmin>[] => [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem
+            className="flex items-center cursor-pointer"
             onClick={() => openModal("edit", <EditAdminModal admin={admin} />)}
           >
-            <Slot className="flex items-center cursor-pointer">
-              <Edit className="h-4 w-4 mr-2" />
-              Edit
-            </Slot>
+            <Edit className="h-4 w-4 mr-2" />
+            Edit
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
